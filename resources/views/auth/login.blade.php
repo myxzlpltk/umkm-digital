@@ -1,5 +1,6 @@
 @extends('layouts.default.app')
 
+@section('title', 'Masuk')
 @section('body.className', 'bg-default')
 
 @section('header')
@@ -23,11 +24,20 @@
                     </button>
                 </div>
             @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="alert-icon"><i class="fa fa-times-circle"></i></span>
+                    <span class="alert-text">{{ session('error') }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="card bg-secondary border-0 mb-0">
                 <div class="card-header bg-transparent pb-5">
                     <div class="text-muted text-center mt-2 mb-3"><small>Masuk menggunakan</small></div>
                     <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
+                        <a href="{{ route('login.google') }}" class="btn btn-neutral btn-icon">
                             <span class="btn-inner--icon"><img src="{{ url('icons/google.svg') }}"></span>
                             <span class="btn-inner--text">Google</span>
                         </a>
