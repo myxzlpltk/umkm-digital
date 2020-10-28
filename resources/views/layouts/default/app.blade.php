@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ env('app.name', 'UMKM Digital') }} - @yield('title', 'Title')</title>
+    <title>{{ config('app.name', 'UMKM Digital') }} - @yield('title', 'Title')</title>
 
     <!-- Favicon -->
     <link href="{{ asset('favicon.ico') }}" rel="shortcut icon" type="image/ico">
