@@ -37,7 +37,7 @@
                         <span class="nav-link-inner--text d-lg-none">Keranjang</span>
                     </a>
                 </li>
-                <li class="nav-item d-none d-lg-block ml-lg-4">
+                <li class="nav-item ml-lg-4">
                     <a href="{{ url('login') }}" class="btn btn-neutral btn-icon">
 							<span class="btn-inner--icon">
 								<i class="fa fa-sign-in-alt mr-2"></i>

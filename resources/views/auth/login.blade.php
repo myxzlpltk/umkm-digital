@@ -78,7 +78,7 @@
                     <a href="#" class="text-light"><small>Lupa kata sandi?</small></a>
                 </div>
                 <div class="col-6 text-right">
-                    <a href="#" class="text-light"><small>Buat akun</small></a>
+                    <a href="{{ route('register') }}" class="text-light"><small>Buat akun</small></a>
                 </div>
             </div>
         </div>

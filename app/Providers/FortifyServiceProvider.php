@@ -35,5 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         // Login Route
         Fortify::loginView('auth.login');
+        // Register Route
+        Fortify::registerView('auth.register');
     }
 }
