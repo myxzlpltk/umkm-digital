@@ -147,5 +147,9 @@ return [
     */
 
     'attributes' => [
+        'email' => 'Alamat Email',
+        'name' => 'Nama lengkap',
+        'password' => 'Kata Sandi',
+        'password_confirmation' => 'Konfirmasi Kata Sandi',
     ],
 ];
