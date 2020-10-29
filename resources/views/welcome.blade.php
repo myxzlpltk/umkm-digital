@@ -36,7 +36,7 @@
                 </div>
             @endif
 
-            @php dump(Auth::user()->toArray()) @endphp
+            @php dump(Auth::user() ? Auth::user()->toArray() : null) @endphp
         </div>
     </body>
 </html>
