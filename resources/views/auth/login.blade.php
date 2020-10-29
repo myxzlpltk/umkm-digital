@@ -85,7 +85,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6">
-                    <a href="#" class="text-light"><small>Lupa kata sandi?</small></a>
+                    <a href="{{ route('password.email') }}" class="text-light"><small>Lupa kata sandi?</small></a>
                 </div>
                 <div class="col-6 text-right">
                     <a href="{{ route('register') }}" class="text-light"><small>Buat akun</small></a>
