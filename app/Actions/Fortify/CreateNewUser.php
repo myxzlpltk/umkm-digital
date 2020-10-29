@@ -30,8 +30,18 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
-            'role' => 'required|in:buyer,seller'
+            'role' => 'required|in:buyer,seller',
+            'g-recaptcha-response' => 'required',
         ])->validate();
+
+        $client = new \GuzzleHttp\Client();
+        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $input['g-recaptcha-response']
+            ]
+        ]);
+        dd($response->getBody()->getContents());
 
         return User::create([
             'name' => $input['name'],

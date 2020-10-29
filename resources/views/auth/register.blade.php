@@ -54,7 +54,7 @@
                     <div class="text-muted text-center mt-2 mb-3"><small>Daftar sebagai <span id="role_text">pembeli</span> menggunakan</small></div>
                     <div class="btn-wrapper text-center">
                         <form action="{{ route('register.google') }}" method="get">
-                            <input type="hidden" id="role" name="role" value="{{ old('role', 'buyer') }}">
+                            <input type="hidden" id="role2" name="role" value="{{ old('role', 'buyer') }}">
                             <button type="submit" class="btn btn-neutral btn-icon">
                                 <span class="btn-inner--icon"><img src="{{ url('icons/google.svg') }}"></span>
                                 <span class="btn-inner--text">Google</span>
@@ -66,7 +66,7 @@
                     <div class="text-center text-muted mb-4">
                         <small>Atau daftarkan diri secara manual</small>
                     </div>
-                    <form action="{{ route('register') }}" method="POST" role="form">
+                    <form action="{{ route('register') }}" method="POST" role="form" id="form-register">
                         @csrf
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
@@ -114,7 +114,7 @@
                         </div>
                         <input type="hidden" id="role" name="role" value="{{ old('role', 'buyer') }}">
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary my-4">Daftar</button>
+                            <button type="button" class="btn btn-primary my-4 g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}" data-callback="onSubmit" data-action="submit">Daftar</button>
                         </div>
                     </form>
                 </div>
@@ -129,10 +129,15 @@
 @endsection
 
 @push('scripts')
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $('#role, #role2').val($(e.target).data('value'));
             $('#role_text').text($(e.target).text().toLowerCase());
         });
+
+        function onSubmit(token) {
+            $('#form-register').submit();
+        }
     </script>
 @endpush

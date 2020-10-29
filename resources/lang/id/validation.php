@@ -148,6 +148,7 @@ return [
 
     'attributes' => [
         'email' => 'Alamat Email',
+        'g-recaptcha-response' => 'Token reCAPTCHA',
         'name' => 'Nama lengkap',
         'password' => 'Kata Sandi',
         'password_confirmation' => 'Konfirmasi Kata Sandi',
