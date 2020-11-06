@@ -45,4 +45,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userable(){
+        return $this->morphTo(__FUNCTION__, 'role', 'id');
+    }
+
+    public function buyer(){
+        return $this->hasOne('App\Models\Buyer');
+    }
+
+    public function seller(){
+        return $this->hasOne('App\Models\Seller');
+    }
 }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class UsersSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,6 +18,13 @@ class UsersSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'role' => 'admin'
         ])->create();
-        User::factory()->times(5)->create();
+
+        User::factory([
+            'role' => 'buyer'
+        ])->count(3)->hasBuyer()->create();
+
+        User::factory([
+            'role' => 'seller'
+        ])->count(3)->hasSeller()->create();
     }
 }
