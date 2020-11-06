@@ -16,4 +16,8 @@ class Buyer extends Model
     public function user(){
         return $this->morphOne('App\Models\User', 'role', 'id');
     }
+
+    public function orders(){
+        return $this->hasMany('App\Models\Order');
+    }
 }
