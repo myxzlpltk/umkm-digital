@@ -23,4 +23,12 @@ class Seller extends Model
             ->withPivot(['start', 'end'])
             ->withTimestamps();
     }
+
+    public function products(){
+        return $this->hasMany('App\Models\Product');
+    }
+
+    public function categories(){
+        return $this->hasMany('App\Models\Category');
+    }
 }
