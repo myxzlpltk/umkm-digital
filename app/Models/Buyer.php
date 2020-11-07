@@ -20,4 +20,8 @@ class Buyer extends Model
     public function orders(){
         return $this->hasMany('App\Models\Order');
     }
+
+    public function carts(){
+        return $this->hasMany('App\Models\Cart');
+    }
 }
