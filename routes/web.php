@@ -24,4 +24,7 @@ Route::middleware('auth')->group(function (){
 
     Route::get('profile', 'ProfileController@profile')->name('profile');
 
+    Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
+        Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+    });
 });
