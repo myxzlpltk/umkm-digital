@@ -18,3 +18,9 @@ Breadcrumbs::for('buyer', function ($trail){
     $trail->parent('home');
     $trail->push('Pembeli', route('admin.buyer'));
 });
+
+// Seller
+Breadcrumbs::for('seller', function ($trail){
+    $trail->parent('home');
+    $trail->push('Penjual', route('admin.seller'));
+});

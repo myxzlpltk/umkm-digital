@@ -30,5 +30,9 @@ Route::middleware('auth')->group(function (){
         Route::prefix('buyer')->group(function (){
             Route::get('/', 'BuyerController@list')->name('admin.buyer');
         });
+
+        Route::prefix('seller')->group(function (){
+            Route::get('/', 'SellerController@list')->name('admin.seller');
+        });
     });
 });
