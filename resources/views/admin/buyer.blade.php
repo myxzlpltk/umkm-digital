@@ -20,7 +20,7 @@
             <h3 class="mb-0">Data Pembeli</h3>
         </div>
         <div class="table-responsive py-4">
-            <table class="table table-flush" id="datatable-basic">
+            <table class="table align-items-center table-flush" id="datatable-basic">
                 <thead class="thead-light">
                     <tr>
                         <th>Nama</th>
@@ -32,7 +32,10 @@
                 <tbody>
                     @foreach($buyers as $user)
                     <tr>
-                        <td>{{ $user->name }}</td>
+                        <td>
+                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="avatar rounded-circle mr-3" alt="avatar">
+                            {{ $user->name }}
+                        </td>
                         <td>
                             {{ $user->email }}
                             @if($user->hasVerifiedEmail())

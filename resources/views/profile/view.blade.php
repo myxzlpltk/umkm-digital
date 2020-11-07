@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
                         <a href="#!">
-                            <img src="{{ asset('img/theme/team-4.jpg') }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
+                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
                         </a>
                         <div class="pt-4 text-center">
                             <h5 class="h3 title">
