@@ -19,11 +19,11 @@
     <link href="{{ asset('vendor/nucleo/css/nucleo.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
 
-    <!-- Argon CSS -->
-    <link type="text/css" href="{{ asset('css/argon.min.css') }}" rel="stylesheet">
-
     <!-- Custom Stylesheets -->
     @stack('stylesheets')
+
+    <!-- Argon CSS -->
+    <link type="text/css" href="{{ asset('css/argon.min.css') }}" rel="stylesheet">
 </head>
 <body class="@yield('body.className')">
 
