@@ -2,6 +2,8 @@
 
 @section('title', 'Dashboard')
 
+@section('breadcrumbs', Breadcrumbs::render('dashboard'))
+
 @push('stylesheets')
 @endpush
 
