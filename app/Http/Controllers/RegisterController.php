@@ -46,7 +46,7 @@ class RegisterController extends Controller{
 
             auth()->login($user);
 
-            return redirect('/');
+            return redirect()->route('profile');
         } catch (\Exception $e){
             return redirect()->route('register')->with([
                 'wronguserpass' => 'Uppss.. Terjadi kesalahan server. Coba lagi nanti!'

@@ -19,3 +19,9 @@ Route::get('login/google', 'LoginController@redirectToProvider')->name('login.go
 Route::get('login/google/callback', 'LoginController@handleProviderCallback')->name('login.google.callback');
 Route::get('register/google', 'RegisterController@redirectToProvider')->name('register.google');
 Route::get('register/google/callback', 'RegisterController@handleProviderCallback')->name('register.google.callback');
+
+Route::middleware('auth')->group(function (){
+
+    Route::get('profile', 'ProfileController@profile')->name('profile');
+
+});

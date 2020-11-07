@@ -1,3 +1,8 @@
 {
+    "admin": "Admin",
+    "buyer": "Pembeli",
+    "password-updated": "Kata sandi berhasil diperbarui.",
+    "profile-information-updated": "Informasi pengguna telah diperbarui.",
+    "seller": "Penjual",
     "verification-link-sent": "Email verifikasi telah dikirim."
 }
