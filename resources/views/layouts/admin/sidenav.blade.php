@@ -36,13 +36,13 @@
                 </h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) == 'buyer' ? 'active' : '' }}" href="{{ route('admin.buyer') }}">
+                        <a class="nav-link {{ Request::segment(2) == 'buyers' ? 'active' : '' }}" href="{{ route('admin.buyers.list') }}">
                             <i class="ni ni-user-run text-orange"></i>
                             <span class="nav-link-text">Pembeli</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) == 'seller' ? 'active' : '' }}" href="{{ route('admin.seller') }}">
+                        <a class="nav-link {{ Request::segment(2) == 'sellers' ? 'active' : '' }}" href="{{ route('admin.sellers.list') }}">
                             <i class="ni ni-shop text-primary"></i>
                             <span class="nav-link-text">Penjual</span>
                         </a>

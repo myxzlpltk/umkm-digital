@@ -14,13 +14,13 @@ Breadcrumbs::for('dashboard', function ($trail){
 });
 
 // Buyer
-Breadcrumbs::for('buyer', function ($trail){
+Breadcrumbs::for('admin.buyers.list', function ($trail){
     $trail->parent('home');
-    $trail->push('Pembeli', route('admin.buyer'));
+    $trail->push('Pembeli', route('admin.buyers.list'));
 });
 
 // Seller
-Breadcrumbs::for('seller', function ($trail){
+Breadcrumbs::for('admin.sellers.list', function ($trail){
     $trail->parent('home');
-    $trail->push('Penjual', route('admin.seller'));
+    $trail->push('Penjual', route('admin.sellers.list'));
 });

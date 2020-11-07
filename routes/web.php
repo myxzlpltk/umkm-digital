@@ -27,12 +27,12 @@ Route::middleware('auth')->group(function (){
     Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');
 
-        Route::prefix('buyer')->group(function (){
-            Route::get('/', 'BuyerController@list')->name('admin.buyer');
+        Route::prefix('buyers')->group(function (){
+            Route::get('/', 'BuyersController@list')->name('admin.buyers.list');
         });
 
-        Route::prefix('seller')->group(function (){
-            Route::get('/', 'SellerController@list')->name('admin.seller');
+        Route::prefix('sellers')->group(function (){
+            Route::get('/', 'SellersController@list')->name('admin.sellers.list');
         });
     });
 });
