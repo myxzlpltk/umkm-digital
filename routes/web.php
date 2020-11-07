@@ -26,5 +26,9 @@ Route::middleware('auth')->group(function (){
 
     Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+
+        Route::prefix('buyer')->group(function (){
+            Route::get('/', 'BuyerController@list')->name('admin.buyer');
+        });
     });
 });

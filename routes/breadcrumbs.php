@@ -12,3 +12,9 @@ Breadcrumbs::for('dashboard', function ($trail){
     $trail->parent('home');
     $trail->push('Dashboard', route('admin.dashboard'));
 });
+
+// Buyer
+Breadcrumbs::for('buyer', function ($trail){
+    $trail->parent('home');
+    $trail->push('Pembeli', route('admin.buyer'));
+});
