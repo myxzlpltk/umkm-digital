@@ -14,7 +14,7 @@ class Seller extends Model
     }
 
     public function user(){
-        return $this->morphOne('App\Models\User', 'role', 'id');
+        return $this->morphOne('App\Models\User',__FUNCTION__, 'role', 'id', 'user_id');
     }
 
     public function days(){

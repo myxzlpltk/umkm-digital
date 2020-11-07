@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public function userable(){
-        return $this->morphTo(__FUNCTION__, 'role', 'id');
+        return $this->morphTo(__FUNCTION__, 'role', 'id', 'user_id');
     }
 
     public function buyer(){
