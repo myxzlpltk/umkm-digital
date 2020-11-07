@@ -54,10 +54,10 @@
     <!-- JSCookie -->
     <script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
 
-    <!-- Argon JS -->
-    <script src="{{ asset('js/argon.min.js') }}"></script>
-
     <!-- Custom Scripts -->
     @stack('scripts')
+
+    <!-- Argon JS -->
+    <script src="{{ asset('js/argon.min.js') }}"></script>
 </body>
 </html>
