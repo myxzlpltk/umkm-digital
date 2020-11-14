@@ -4,14 +4,6 @@
 @section('body.className', 'bg-white')
 
 @push('stylesheets')
-    <style>
-        #geolocate{
-            cursor: pointer;
-        }
-        #geolocate:hover{
-            color: #0c85d0;
-        }
-    </style>
 @endpush
 
 @section('header')
@@ -25,21 +17,15 @@
                             <p class="text-white">Warung serba murah berkomitmen untuk menghubungkan penjual dan pembeli dalam satu genggaman.</p>
                             <div class="card mt-5">
                                 <div class="card-body">
-                                    <h3 class="card-title">{{ UserHelp::greeting() }} Makanannya mau diantar kemana?</h3>
+                                    <h3 class="card-title">{{ UserHelp::greeting() }} Kamu mau pesan apa?</h3>
                                     <div class="form-group">
                                         <div class="input-group input-group-merge">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-utensils"></i></span>
                                             </div>
-                                            <input class="form-control" placeholder="Masukkan Alamat" type="text" name="label" id="label" autofocus>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="geolocate"><i class="fas fa-search-location"></i></span>
-                                            </div>
+                                            <input class="form-control" placeholder="Pesan apa aja..." type="text" name="label" id="label" autofocus>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="latitude" id="latitude">
-                                    <input type="hidden" name="longitude" id="longitude">
-                                    <input type="hidden" name="accuracy" id="accuracy">
                                     <button type="submit" class="btn btn-primary btn-block">Cari</button>
                                 </div>
                             </div>
@@ -83,42 +69,4 @@
 @endsection
 
 @push('scripts')
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
-            type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
-            type="text/javascript" charset="utf-8"></script>
-    <script>
-        var isGeolocationPossible = false;
-        var latlng;
-
-        if(navigator.geolocation){
-            isGeolocationPossible = true;
-            navigator.geolocation.getCurrentPosition(pos => {
-                latlng = pos.coords.latitude+","+pos.coords.longitude+","+pos.coords.accuracy;
-                $('#latitude').val(pos.coords.latitude);
-                $('#longitude').val(pos.coords.longitude);
-                $('#accuracy').val(pos.coords.accuracy);
-                geolocation();
-            });
-        }
-        else{
-            $('#geolocate').parent().remove();
-            console.warn("Browser tidak mendukung geolokasi");
-        }
-
-        $('#geolocate').click(function (event){
-            geolocation();
-        });
-
-        var platform = new H.service.Platform({ apikey: '{{ env('HERE_API_KEY') }}' });
-        var service = platform.getSearchService();
-
-        function geolocation(){
-            if(isGeolocationPossible && latlng != undefined){
-                service.reverseGeocode({ at: latlng }, result => {
-                   $('#label').val(result.items[0].address.label).focus();
-                });
-            }
-        }
-    </script>
 @endpush
