@@ -57,4 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function seller(){
         return $this->hasOne('App\Models\Seller');
     }
+
+    public function getAvatarAttribute(){
+        return $this->attributes['avatar'] ?: "default.jpg";
+    }
+
 }
