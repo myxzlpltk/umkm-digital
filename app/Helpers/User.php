@@ -9,7 +9,7 @@ class User{
     public static function greeting(){
         $x = Carbon::now()->hour;
 
-        if($x <= 4 || $x <= 18){
+        if($x <= 4 || $x >= 18){
             return 'Selamat Malam!';
         }
         elseif($x <= 10){
