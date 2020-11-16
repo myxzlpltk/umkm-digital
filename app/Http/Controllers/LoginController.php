@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller{
@@ -31,6 +33,15 @@ class LoginController extends Controller{
             return redirect()->route('login')->with([
                 'error' => 'Uppss.. Terjadi kesalahan server. Coba lagi nanti!'
             ]);
+        }
+    }
+
+    public function redirectToHome(Request $request){
+        if(Gate::allows('isAdmin')){
+            return redirect()->route('admin.dashboard');
+        }
+        else{
+            return redirect()->route('home');
         }
     }
 

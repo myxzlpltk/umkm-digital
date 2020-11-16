@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@welcome');
+Route::get('/', 'HomeController@welcome')->name('home');
 
 Route::get('login/google', 'LoginController@redirectToProvider')->name('login.google');
 Route::get('login/google/callback', 'LoginController@handleProviderCallback')->name('login.google.callback');
@@ -22,6 +22,7 @@ Route::get('register/google/callback', 'RegisterController@handleProviderCallbac
 
 Route::middleware('auth')->group(function (){
 
+    Route::get('login/redirect', 'LoginController@redirectToHome')->name('login.redirect');
     Route::get('profile', 'ProfileController@profile')->name('profile');
 
     Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
