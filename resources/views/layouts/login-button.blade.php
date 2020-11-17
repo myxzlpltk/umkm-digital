@@ -14,6 +14,12 @@
             <div class="dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Selamat Datang!</h6>
             </div>
+            @can('isAdmin')
+            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
+                <i class="ni ni-tv-2"></i>
+                <span>Konsol Admin</span>
+            </a>
+            @endcan
             <a href="{{ route('profile') }}" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>Profil</span>
