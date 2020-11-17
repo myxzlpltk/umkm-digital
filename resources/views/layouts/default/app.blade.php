@@ -59,5 +59,8 @@
 
     <!-- Argon JS -->
     <script src="{{ asset('js/argon.min.js') }}"></script>
+
+    <!-- App JS -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

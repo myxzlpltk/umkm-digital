@@ -17,9 +17,7 @@
             <div class="col-md-4 col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <a href="#!">
-                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
-                        </a>
+                        <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px;">
                         <div class="pt-4 text-center">
                             <h5 class="h3 title">
                                 <span class="d-block mb-1">{{ $user->name }}</span>
@@ -80,15 +78,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('user-profile-information.update') }}" method="post">
+                        <form action="{{ route('user-profile-information.update') }}" method="post" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <h6 class="heading-small text-muted mb-4">Informasi Pengguna</h6>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-name">Nama Lengkap</label>
-                                        <input type="text" id="input-name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" value="{{ old('name') ?: $user->name }}">
+                                        <label class="form-control-label" for="input-name">Nama Lengkap <x-required/></label>
+                                        <input type="text" id="input-name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" value="{{ old('name') ?: $user->name }}" required>
                                         @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -96,17 +94,38 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-email">Email address @if($user->hasVerifiedEmail()) <i class="fas fa-check-circle fa-fw text-primary" data-toggle="tooltip" data-original-title="Terverifikasi"></i> @else <i class="fas fa-times-circle fa-fw text-danger" data-toggle="tooltip" data-original-title="Tidak Terverifikasi"></i> @endif</label>
-                                        <input type="email" id="input-email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Alamat Email" value="{{ old('email') ?: $user->email }}">
+                                        <label class="form-control-label" for="input-email">Email address <x-required/></label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="email" id="input-email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Alamat Email" value="{{ old('email') ?: $user->email }}" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    @if($user->hasVerifiedEmail())
+                                                        <i class="fas fa-check-circle fa-fw text-primary" data-toggle="tooltip" data-original-title="Terverifikasi"></i>
+                                                    @else
+                                                        <i class="fas fa-times-circle fa-fw text-danger" data-toggle="tooltip" data-original-title="Tidak Terverifikasi"></i>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
                                         @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-avatar">Foto Profil</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input @error('avatar') is-invalid @enderror" id="input-avatar" name="avatar" accept="image/*">
+                                    <label class="custom-file-label" for="input-avatar">Pilih file</label>
+                                </div>
+                                @error('avatar')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Simpan</button>
                         </form>
-                    @can('isBuyerOrSeller')
+                        @can('isBuyerOrSeller')
                             <form>
                                 <hr class="my-4" />
                                 <p class="text-info">Silahkan daftarkan data tokomu disini</p>
