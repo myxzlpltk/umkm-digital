@@ -31,12 +31,24 @@
             </ul>
             <hr class="d-lg-none" />
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+                @if(Auth::guest() || Auth::user()->can('isBuyer'))
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ url('cart') }}" data-toggle="tooltip" data-original-title="Keranjang">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="nav-link-inner--text d-lg-none">Keranjang</span>
                     </a>
                 </li>
+                @endif
+
+                @can('isSeller')
+                <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ url('manage') }}" data-toggle="tooltip" data-original-title="Kelola Toko Saya">
+                        <i class="fas fa-store"></i>
+                        <span class="nav-link-inner--text d-lg-none">Kelola Toko Saya</span>
+                    </a>
+                </li>
+                @endcan
+
                 @include('layouts.login-button')
             </ul>
         </div>
