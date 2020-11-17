@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\Bank;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
 
 class ProfileController extends Controller{
+
+    use PasswordValidationRules;
 
     public function profile(Request $request){
         return view('profile.view', [
@@ -38,7 +42,7 @@ class ProfileController extends Controller{
                 ->user();
 
             if(User::where('google_email', $googleUser->getEmail())->first()){
-                $request->session()->flash('error', 'Akun sudah terdaftar');
+                $request->session()->flash('error', 'Akun sudah terdaftar.');
 
                 return redirect()->route('profile');
             }
@@ -49,7 +53,7 @@ class ProfileController extends Controller{
             $user->google_avatar = $googleUser->getAvatar();
             $user->save();
 
-            $request->session()->flash('success', 'Akun Google telah kaitkan');
+            $request->session()->flash('success', 'Akun Google telah kaitkan.');
 
             return redirect()->route('profile');
         } catch (\Exception $e){
@@ -64,13 +68,18 @@ class ProfileController extends Controller{
             return abort(403);
         }
 
+        if($request->user()->password == ''){
+            $request->session()->flash('error', 'Kamu tidak bisa memutuskan akun Google sebelum menambahkan kata sandi.');
+            return redirect()->route('profile');
+        }
+
         $user = $request->user();
         $user->google_name = NULL;
         $user->google_email = NULL;
         $user->google_avatar = NULL;
         $user->save();
 
-        $request->session()->flash('success', 'Akun Google telah diputuskan');
+        $request->session()->flash('success', 'Akun Google telah diputuskan.');
 
         return redirect()->route('profile');
     }
@@ -85,5 +94,19 @@ class ProfileController extends Controller{
         else{
             return abort(404);
         }
+    }
+
+    public function addPassword(Request $request){
+        $request->validate([
+            'password' => $this->PasswordRules()
+        ]);
+
+        $user = $request->user();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $request->session()->flash('success', 'Kata sandi telah ditambahkan.');
+
+        return redirect()->route('profile');
     }
 }

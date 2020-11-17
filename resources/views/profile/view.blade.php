@@ -132,9 +132,9 @@
                         @can('isBuyerOrSeller')
                             <form>
                                 <hr class="my-4" />
-                                @empty($user->seller)
+                                @if(Gate::allows('isSeller') && $user->seller == NULL)
                                     <p class="text-info">Silahkan daftarkan data tokomu disini</p>
-                                @endempty
+                                @endif
                                 <h6 class="heading-small text-muted mb-4">Informasi {{ __($user->role) }}</h6>
 
                                 <div class="row">
@@ -198,25 +198,28 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('user-password.update') }}" method="post">
+                        <form action="{{ $user->password == '' ? route('profile.password') : route('user-password.update') }}" method="post">
                             @method('put')
                             @csrf
+
+                            @if($user->password)
                             <div class="form-group">
-                                <label class="form-control-label" for="input-current-password">Kata Sandi Saat Ini</label>
+                                <label class="form-control-label" for="input-current-password">Kata Sandi Saat Ini <x-required/></label>
                                 <input type="password" id="input-current-password" name="current_password" class="form-control @error('current_password') is-invalid @enderror" placeholder="Masukkan kata sandi saat ini">
                                 @error('current_password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            @endif
                             <div class="form-group">
-                                <label class="form-control-label" for="input-password">Kata Sandi Baru</label>
+                                <label class="form-control-label" for="input-password">Kata Sandi Baru <x-required/></label>
                                 <input type="password" id="input-password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan kata sandi baru">
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label" for="input-password-confirmation">Konfirmasi Kata Sandi Baru</label>
+                                <label class="form-control-label" for="input-password-confirmation">Konfirmasi Kata Sandi Baru <x-required/></label>
                                 <input type="password" id="input-password-confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Ketik ulang kata sandi baru">
                                 @error('password_confirmation')
                                 <div class="invalid-feedback">{{ $message }}</div>

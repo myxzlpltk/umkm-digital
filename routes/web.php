@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function (){
 
     Route::get('login/redirect', 'LoginController@redirectToHome')->name('login.redirect');
     Route::get('profile', 'ProfileController@profile')->name('profile');
+    Route::put('profile/password', 'ProfileController@addPassword')->name('profile.password');
     Route::get('profile/google', 'ProfileController@redirectToProvider')->name('profile.google');
     Route::get('profile/google/avatar', 'ProfileController@showAvatar')->name('profile.google.avatar');
     Route::get('profile/google/callback', 'ProfileController@handleProviderCallback')->name('profile.google.callback');
