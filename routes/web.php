@@ -29,11 +29,11 @@ Route::middleware('auth')->group(function (){
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');
 
         Route::prefix('buyers')->group(function (){
-            Route::get('/', 'BuyersController@list')->name('admin.buyers.list');
+            Route::get('/', 'BuyerController@index')->name('admin.buyers.list');
         });
 
         Route::prefix('sellers')->group(function (){
-            Route::get('/', 'SellersController@list')->name('admin.sellers.list');
+            Route::get('/', 'SellerController@index')->name('admin.sellers.list');
         });
     });
 });
