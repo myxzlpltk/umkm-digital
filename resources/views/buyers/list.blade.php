@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.console.app')
 
 @section('title', 'Pembeli')
 

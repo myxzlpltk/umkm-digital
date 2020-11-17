@@ -28,7 +28,7 @@
 <body>
 
 <!-- Sidenav -->
-@include('layouts.admin.sidenav')
+@include('layouts.console.sidenav')
 <!-- Main content -->
 <div class="main-content" id="panel">
     <!-- Topnav -->
@@ -76,7 +76,7 @@
     <div class="container-fluid mt--6">
         @yield('content')
         <!-- Footer -->
-        @include('layouts.admin.footer')
+        @include('layouts.console.footer')
     </div>
 </div>
 
