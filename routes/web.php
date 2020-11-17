@@ -24,6 +24,10 @@ Route::middleware('auth')->group(function (){
 
     Route::get('login/redirect', 'LoginController@redirectToHome')->name('login.redirect');
     Route::get('profile', 'ProfileController@profile')->name('profile');
+    Route::get('profile/google', 'ProfileController@redirectToProvider')->name('profile.google');
+    Route::get('profile/google/avatar', 'ProfileController@showAvatar')->name('profile.google.avatar');
+    Route::get('profile/google/callback', 'ProfileController@handleProviderCallback')->name('profile.google.callback');
+    Route::get('profile/google/disconnect', 'ProfileController@disconnectProvider')->name('profile.google.disconnect');
 
     Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');

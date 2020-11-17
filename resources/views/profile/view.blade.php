@@ -25,9 +25,13 @@
                             </h5>
                             <div class="mt-3">
                                 @empty($user->google_email)
-                                    <a href="#" class="btn btn-sm btn-danger btn-block mr-4"><i class="fab fa-google fa-fw"></i> Hubungkan</a>
+                                    <a href="{{ route('profile.google') }}" class="btn btn-sm btn-danger btn-block mr-4"><i class="fab fa-google fa-fw"></i> Hubungkan</a>
                                 @else
-                                    <a href="#" class="btn btn-sm btn-danger btn-block mr-4"><i class="fab fa-google fa-fw"></i> Terhubung</a>
+                                    <hr/>
+                                    <p class="card-title font-weight-bold">Akun Google</p>
+                                    <img src="{{ route('profile.google.avatar') }}" alt="" class="avatar rounded-circle" data-toggle="tooltip" data-original-title="{{ $user->google_email }}">
+                                    <p>{{ $user->google_name }}</p>
+                                    <a href="{{ route('profile.google.disconnect') }}" class="btn btn-sm btn-danger btn-block mr-4"><i class="fab fa-google fa-fw"></i> Putuskan</a>
                                 @endempty
                             </div>
                         </div>
@@ -128,7 +132,9 @@
                         @can('isBuyerOrSeller')
                             <form>
                                 <hr class="my-4" />
-                                <p class="text-info">Silahkan daftarkan data tokomu disini</p>
+                                @empty($user->seller)
+                                    <p class="text-info">Silahkan daftarkan data tokomu disini</p>
+                                @endempty
                                 <h6 class="heading-small text-muted mb-4">Informasi {{ __($user->role) }}</h6>
 
                                 <div class="row">
