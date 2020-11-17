@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="container py-7 py-lg-8 pt-lg-9">
-        @include('layouts.status')
+        @include('layouts.flash')
         <div class="row">
             <div class="col-md-4 col-lg-3">
                 <div class="card">
@@ -37,7 +37,7 @@
                 </div>
 
                 @can('isSeller')
-                    @if($user->seller instanceof \App\Models\Seller)
+                    @if($user->seller)
                         <div class="card card-profile">
                             <img src="{{ asset('storage/banners/'.$user->seller->banner) }}" alt="Banner Toko" class="card-img-top">
                             <div class="row justify-content-center">
@@ -106,21 +106,22 @@
                             </div>
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Simpan</button>
                         </form>
-                        @can('isBuyerOrSeller')
-                        <form>
-                            <hr class="my-4" />
-                            <h6 class="heading-small text-muted mb-4">Informasi {{ __($user->role) }}</h6>
+                    @can('isBuyerOrSeller')
+                            <form>
+                                <hr class="my-4" />
+                                <p class="text-info">Silahkan daftarkan data tokomu disini</p>
+                                <h6 class="heading-small text-muted mb-4">Informasi {{ __($user->role) }}</h6>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
                                     @can('isSeller')
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-store-name">Nama Toko</label>
+                                                <input id="input-store-name" class="form-control" placeholder="Masukkan nama toko" value="{{ $user->userable ? $user->userable->store_name : '' }}" type="text">
+                                            </div>
+                                        @endcan
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-store-name">Nama Toko</label>
-                                            <input id="input-store-name" class="form-control" placeholder="Masukkan nama toko" value="{{ $user->userable ? $user->userable->store_name : '' }}" type="text">
-                                        </div>
-                                    @endcan
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-address">Alamat Lengkap</label>
+                                            <label class="form-control-label" for="input-address">Alamat Lengkap</label>
                                         <input id="input-address" class="form-control" placeholder="Masukkan alamat lengkap" value="{{ $user->userable ? $user->userable->address : '' }}" type="text">
                                     </div>
                                     <div class="form-group">

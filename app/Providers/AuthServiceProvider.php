@@ -42,5 +42,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isBuyerOrSeller', function (User $user){
             return $user->role === 'buyer' || $user->role === 'seller';
         });
+
+        Gate::define('isBuyerOrGuest', function (?User $user){
+            return $user === null || $user->role === 'buyer';
+        });
     }
 }

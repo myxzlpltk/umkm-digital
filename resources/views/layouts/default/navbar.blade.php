@@ -42,7 +42,7 @@
 
                 @can('isSeller')
                 <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="{{ url('manage') }}" data-toggle="tooltip" data-original-title="Kelola Toko Saya">
+                    <a class="nav-link nav-link-icon" href="{{ route('my-store') }}" data-toggle="tooltip" data-original-title="Kelola Toko Saya">
                         <i class="fas fa-store"></i>
                         <span class="nav-link-inner--text d-lg-none">Kelola Toko Saya</span>
                     </a>

@@ -36,4 +36,8 @@ Route::middleware('auth')->group(function (){
             Route::get('/', 'SellerController@index')->name('admin.sellers.list');
         });
     });
+
+    Route::middleware('can:isSeller')->prefix('my-store/')->group(function (){
+        Route::get('/', 'SellerController@myStore')->name('my-store');
+    });
 });

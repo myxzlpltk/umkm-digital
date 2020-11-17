@@ -24,3 +24,13 @@ Breadcrumbs::for('admin.sellers.list', function ($trail){
     $trail->parent('home');
     $trail->push('Penjual', route('admin.sellers.list'));
 });
+
+/**
+ * Seller Segment
+ */
+
+// My Store
+Breadcrumbs::for('my-store', function ($trail){
+    $trail->parent('home');
+    $trail->push('Toko Saya', route('my-store'));
+});

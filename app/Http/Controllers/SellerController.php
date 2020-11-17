@@ -24,6 +24,19 @@ class SellerController extends Controller{
     }
 
     /**
+     * Display my store
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myStore(Request $request){
+        $seller = $request->user()->seller;
+
+        return Response::view('sellers.my-store', [
+            'seller' => $seller
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

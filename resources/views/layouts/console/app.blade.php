@@ -74,6 +74,7 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
+        @include('layouts.flash')
         @yield('content')
         <!-- Footer -->
         @include('layouts.console.footer')
