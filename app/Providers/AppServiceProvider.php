@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Seller;
 use App\Models\User;
+use App\Observers\SellerObserver;
 use App\Observers\UserObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         User::observe(UserObserver::class);
+        Seller::observe(SellerObserver::class);
 
         Relation::morphMap([
             'buyer' => 'App\Models\Buyer',

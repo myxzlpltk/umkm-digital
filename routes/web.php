@@ -23,12 +23,15 @@ Route::get('register/google/callback', 'RegisterController@handleProviderCallbac
 Route::middleware('auth')->group(function (){
 
     Route::get('login/redirect', 'LoginController@redirectToHome')->name('login.redirect');
+
     Route::get('profile', 'ProfileController@profile')->name('profile');
     Route::put('profile/password', 'ProfileController@addPassword')->name('profile.password');
     Route::get('profile/google', 'ProfileController@redirectToProvider')->name('profile.google');
     Route::get('profile/google/avatar', 'ProfileController@showAvatar')->name('profile.google.avatar');
     Route::get('profile/google/callback', 'ProfileController@handleProviderCallback')->name('profile.google.callback');
     Route::get('profile/google/disconnect', 'ProfileController@disconnectProvider')->name('profile.google.disconnect');
+    Route::post('profile/seller', 'ProfileController@updateSeller')->name('profile.seller');
+    Route::post('profile/buyer', 'ProfileController@updateBuyer')->name('profile.buyer');
 
     Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');

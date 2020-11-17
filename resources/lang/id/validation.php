@@ -147,9 +147,17 @@ return [
     */
 
     'attributes' => [
-        'email' => 'Alamat Email',
+        'account_name' => 'Atas nama',
+        'account_number' => 'Nomor rekening',
+        'address' => 'Alamat lengkap',
+        'avatar' => 'Foto profil',
+        'bank_id' => 'Nama bank',
+        'current_password' => 'Kata sandi saat ini',
+        'email' => 'Alamat email',
         'name' => 'Nama lengkap',
-        'password' => 'Kata Sandi',
-        'password_confirmation' => 'Konfirmasi Kata Sandi',
+        'password' => 'Kata sandi',
+        'password_confirmation' => 'Konfirmasi kata sandi',
+        'phone_number' => 'Nomor HP',
+        'store_name' => 'Nama toko',
     ],
 ];

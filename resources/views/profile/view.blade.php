@@ -130,7 +130,8 @@
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Simpan</button>
                         </form>
                         @can('isBuyerOrSeller')
-                            <form>
+                            <form action="@can('isBuyer') {{ route('profile.buyer') }} @elsecan('isSeller') {{ route('profile.seller') }} @endcan" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <hr class="my-4" />
                                 @if(Gate::allows('isSeller') && $user->seller == NULL)
                                     <p class="text-info">Silahkan daftarkan data tokomu disini</p>
@@ -139,52 +140,90 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                    @can('isSeller')
+                                        @can('isSeller')
                                             <div class="form-group">
-                                                <label class="form-control-label" for="input-store-name">Nama Toko</label>
-                                                <input id="input-store-name" class="form-control" placeholder="Masukkan nama toko" value="{{ $user->userable ? $user->userable->store_name : '' }}" type="text">
+                                                <label class="form-control-label" for="input-logo">Logo Toko <i class="fa fa-info-circle fa-fw" data-toggle="tooltip" data-original-title="Rasio 1:1"></i></label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input @error('logo') is-invalid @enderror" id="input-logo" name="logo" accept="image/*">
+                                                    <label class="custom-file-label" for="input-logo">Pilih file</label>
+                                                </div>
+                                                @error('logo')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-banner">Banner Toko <i class="fa fa-info-circle fa-fw" data-toggle="tooltip" data-original-title="Rasio 3:2"></i></label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input @error('banner') is-invalid @enderror" id="input-banner" name="banner" accept="image/*">
+                                                    <label class="custom-file-label" for="input-banner">Pilih file</label>
+                                                </div>
+                                                @error('banner')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-store-name">Nama Toko <x-required/></label>
+                                                <input id="input-store-name" name="store_name" class="form-control @error('store_name') is-invalid @enderror" placeholder="Masukkan nama toko" value="{{ old('store_name') ?: optional($user->userable)->store_name }}" type="text" required>
+                                                @error('store_name')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         @endcan
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-address">Alamat Lengkap</label>
-                                        <input id="input-address" class="form-control" placeholder="Masukkan alamat lengkap" value="{{ $user->userable ? $user->userable->address : '' }}" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-phone-number">Nomor HP</label>
-                                        <div class="input-group input-group-merge">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">+62</span>
+                                            <label class="form-control-label" for="input-address">Alamat Lengkap <x-required/></label>
+                                            <input id="input-address" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Masukkan alamat lengkap" value="{{ old('address') ?: optional($user->userable)->address }}" type="text" required>
+                                            @error('address')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-phone-number">Nomor HP <x-required/></label>
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">+62</span>
+                                                </div>
+                                                <input id="input-phone-number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Masukkan nomor HP" value="{{ old('phone_number') ?: optional($user->userable)->phone_number }}" type="text" required>
                                             </div>
-                                            <input id="input-phone-number" class="form-control" placeholder="Masukkan nomor HP" value="{{ $user->userable ? $user->userable->phone_number : '' }}" type="text">
+                                            @error('phone_number')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-bank-id">Nama Bank</label>
-                                        <select class="form-control" data-toggle="select">
-                                            <option disabled hidden selected>--Pilih Bank--</option>
-                                            @foreach($banks as $bank)
-                                            <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-bank-id">Nama Bank <x-required/></label>
+                                            <select class="form-control @error('bank_id') is-invalid @enderror" name="bank_id" data-toggle="select" required>
+                                                <option disabled hidden selected>--Pilih Bank--</option>
+                                                @foreach($banks as $bank)
+                                                    <option value="{{ $bank->id }}" @if((old('bank_id') ?: optional($user->userable)->bank_id) == $bank->id) selected @endif>{{ $bank->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('bank_id')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-account-number">Nomor Rekening <x-required/></label>
+                                            <input type="text" id="input-account-number" name="account_number" class="form-control @error('account_number') is-invalid @enderror" placeholder="Masukkan nomor rekening" value="{{ old('account_number') ?: optional($user->userable)->account_number }}" required>
+                                        </div>
+                                        @error('account_number')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-account-name">Atas Nama <x-required/></label>
+                                            <input type="text" id="input-account-name" name="account_name" class="form-control @error('account_name') is-invalid @enderror" placeholder="Masukkan atas nama rekening" value="{{ old('account_name') ?: optional($user->userable)->account_name }}" required>
+                                        </div>
+                                        @error('account_name')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-account-number">Nomor Rekening</label>
-                                        <input type="text" id="input-account-number" class="form-control" placeholder="Masukkan nomor rekening" value="{{ $user->userable ? $user->userable->account_number : '' }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-account-name">Atas Nama</label>
-                                        <input type="text" id="input-account-name" class="form-control" placeholder="Masukkan atas nama rekening" value="{{ $user->userable ? $user->userable->account_name : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Simpan</button>
-                        </form>
+                                <button class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Simpan</button>
+                            </form>
                         @endcan
                     </div>
                 </div>

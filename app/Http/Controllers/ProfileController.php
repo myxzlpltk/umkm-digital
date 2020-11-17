@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\Bank;
+use App\Models\Buyer;
+use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Laravel\Socialite\Facades\Socialite;
 
 class ProfileController extends Controller{
@@ -106,6 +111,82 @@ class ProfileController extends Controller{
         $user->save();
 
         $request->session()->flash('success', 'Kata sandi telah ditambahkan.');
+
+        return redirect()->route('profile');
+    }
+
+    public function updateSeller(Request $request){
+        $request->validate([
+            'logo' => ['nullable', 'image', 'dimensions:min_width=200,min_height=200'],
+            'banner' => ['nullable', 'image', 'dimensions:min_width=200,min_height=200'],
+            'store_name' => 'required|string',
+            'address' => 'required|string',
+            'phone_number' => 'required|numeric|starts_with:8',
+            'bank_id' => 'required|exists:App\Models\Bank,id',
+            'account_number' => 'required|numeric',
+            'account_name' => 'required|string',
+        ]);
+
+        $seller = Seller::updateOrCreate(
+            ['user_id' => $request->user()->id],
+            [
+                'store_name' => $request->store_name,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'bank_id' => $request->bank_id,
+                'account_number' => $request->account_number,
+                'account_name' => $request->account_name,
+            ],
+        );
+
+        if($request->file('logo')){
+            $image = Image::make($request->file('logo'));
+            $dim = min($image->width(), $image->height(), 500);
+
+            $logo = Str::random(64).'.jpg';
+            Storage::disk('public')->put("logos/$logo", $image->fit($dim)->encode('jpg', 80));
+
+            $seller->logo = $logo;
+            $seller->save();
+        }
+
+        if($request->file('banner')){
+            $image = Image::make($request->file('banner'));
+            $dim = min($image->width(), $image->height(), 600);
+
+            $banner = Str::random(64).'.jpg';
+            Storage::disk('public')->put("banners/$banner", $image->fit($dim, $dim/3)->encode('jpg', 80));
+
+            $seller->banner = $banner;
+            $seller->save();
+        }
+
+        $request->session()->flash('success', 'Data penjual telah diperbarui.');
+
+        return redirect()->route('profile');
+    }
+
+    public function updateBuyer(Request $request){
+        $request->validate([
+            'address' => 'required|string',
+            'phone_number' => 'required|numeric|starts_with:8',
+            'bank_id' => 'required|exists:App\Models\Bank,id',
+            'account_number' => 'required|numeric',
+            'account_name' => 'required|string',
+        ]);
+
+        Buyer::updateOrCreate(
+            ['user_id' => $request->user()->id],
+            [
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'bank_id' => $request->bank_id,
+                'account_number' => $request->account_number,
+                'account_name' => $request->account_name,
+            ],
+        );
+
+        $request->session()->flash('success', 'Data pembeli telah diperbarui.');
 
         return redirect()->route('profile');
     }
