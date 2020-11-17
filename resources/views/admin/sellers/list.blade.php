@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col">
                                     <strong>{{ $user->name }}</strong><br>
-                                    <span class="small text-muted">{{ $user->seller->store_name }}</span>
+                                    <span class="small text-muted">{{ $user->seller ? $user->seller->store_name: '-' }}</span>
                                 </div>
                             </div>
                         </td>
