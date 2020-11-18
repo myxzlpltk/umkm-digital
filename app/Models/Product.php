@@ -25,6 +25,10 @@ class Product extends Model
         return $this->hasMany('App\Models\Cart');
     }
 
+    public function getImageAttribute(){
+        return $this->attributes['image'] ?: "default.jpg";
+    }
+
     public function getDiscountPriceAttribute(){
         return round(($this->discount/100)*$this->price);
     }

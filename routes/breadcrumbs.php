@@ -28,7 +28,13 @@ Breadcrumbs::for('manage.sellers.index', function ($trail){
 // Products
 Breadcrumbs::for('manage.products.index', function ($trail){
     $trail->parent('home');
-    $trail->push('Produk', route('manage.product.index'));
+    $trail->push('Produk', route('manage.products.index'));
+});
+
+// Products > Lihat Produk
+Breadcrumbs::for('manage.products.show', function ($trail, $product){
+    $trail->parent('manage.products.index');
+    $trail->push('Lihat Produk', route('manage.products.show', $product));
 });
 
 // Categories

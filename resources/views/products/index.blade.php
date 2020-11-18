@@ -53,7 +53,7 @@
                         </td>
                         <td>{{ $product->stock }}</td>
                         <td>
-                            <a href="#!" class="table-action" data-toggle="tooltip" data-original-title="Lihat">
+                            <a href="{{ route('manage.products.show', $product) }}" class="table-action" data-toggle="tooltip" data-original-title="Lihat">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </td>

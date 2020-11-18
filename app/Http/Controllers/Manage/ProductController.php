@@ -66,7 +66,11 @@ class ProductController extends Controller{
      */
     public function show(Product $product)
     {
-        //
+        Gate::authorize('view', $product);
+
+        return Response::view('products.show', [
+            'product' => $product
+        ]);
     }
 
     /**

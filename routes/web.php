@@ -42,21 +42,10 @@ Route::middleware('auth')->group(function (){
     Route::middleware('can:isAdminOrSeller')->prefix('manage')->namespace('Manage')->group(function (){
         Route::get('/', 'DashboardController@index')->name('manage');
 
-        Route::prefix('buyers')->group(function (){
-            Route::get('/', 'BuyerController@index')->name('manage.buyers.index');
-        });
-
-        Route::prefix('sellers')->group(function (){
-            Route::get('/', 'SellerController@index')->name('manage.sellers.index');
-        });
-
-        Route::prefix('products')->group(function (){
-            Route::get('/', 'ProductController@index')->name('manage.product.index');
-        });
-
-        Route::prefix('categories')->group(function (){
-            Route::get('/', 'CategoryController@index')->name('manage.categories.index');
-        });
+        Route::resource('buyers', BuyerController::class, ['as' => 'manage']);
+        Route::resource('sellers', SellerController::class, ['as' => 'manage']);
+        Route::resource('products', ProductController::class, ['as' => 'manage']);
+        Route::resource('categories', CategoryController::class, ['as' => 'manage']);
     });
 
     Route::middleware('can:isSeller')->group(function (){
