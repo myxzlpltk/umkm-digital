@@ -30,3 +30,9 @@ Breadcrumbs::for('manage.products.index', function ($trail){
     $trail->parent('home');
     $trail->push('Produk', route('manage.product.index'));
 });
+
+// Categories
+Breadcrumbs::for('manage.categories.index', function ($trail){
+    $trail->parent('home');
+    $trail->push('Kategori', route('manage.categories.index'));
+});

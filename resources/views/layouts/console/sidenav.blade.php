@@ -61,6 +61,15 @@
                         </a>
                     </li>
                     @endcan
+
+                    @can('view-any', \App\Models\Category::class)
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::segment(2) == 'categories' ? 'active' : '' }}" href="{{ route('manage.categories.index')  }}">
+                            <i class="ni ni-tag text-primary"></i>
+                            <span class="nav-link-text">Kategori</span>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
                 @can('isAdmin')
                     <ul class="navbar-nav">
@@ -88,12 +97,7 @@
                     </ul>
                 @elsecan('isSeller')
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ni ni-tag text-primary"></i>
-                                <span class="nav-link-text">Kategori</span>
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="ni ni-money-coins text-default"></i>

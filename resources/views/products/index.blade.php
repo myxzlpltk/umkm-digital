@@ -40,7 +40,7 @@
                         @endcan
                         <td>
                             <span class="d-block">{{ $product->name }}</span>
-                            <a href="#">{{ $product->category->name }}</a>
+                            <span class="text-primary">{{ $product->category->name }}</span>
                         </td>
                         <td>
                             @if($product->discount > 0)

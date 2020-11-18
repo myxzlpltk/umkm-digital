@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function (){
         Route::prefix('products')->group(function (){
             Route::get('/', 'ProductController@index')->name('manage.product.index');
         });
+
+        Route::prefix('categories')->group(function (){
+            Route::get('/', 'CategoryController@index')->name('manage.categories.index');
+        });
     });
 
     Route::middleware('can:isSeller')->group(function (){
