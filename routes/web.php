@@ -35,19 +35,23 @@ Route::middleware('auth')->group(function (){
         Route::post('buyer', 'ProfileController@updateBuyer')->name('profile.buyer');
     });
 
-    Route::middleware('can:isAdmin')->prefix('admin/')->group(function (){
-        Route::view('/', 'admin.dashboard')->name('admin.dashboard');
+    Route::middleware('can:isAdmin')->group(function (){
+
+    });
+
+    Route::middleware('can:isAdminOrSeller')->prefix('manage')->namespace('Manage')->group(function (){
+        Route::get('/', 'DashboardController@index')->name('manage');
 
         Route::prefix('buyers')->group(function (){
-            Route::get('/', 'BuyerController@index')->name('admin.buyers.list');
+            Route::get('/', 'BuyerController@index')->name('manage.buyers.index');
         });
 
         Route::prefix('sellers')->group(function (){
-            Route::get('/', 'SellerController@index')->name('admin.sellers.list');
+            Route::get('/', 'SellerController@index')->name('manage.sellers.index');
         });
     });
 
-    Route::middleware('can:isSeller')->prefix('my-store/')->group(function (){
-        Route::get('/', 'SellerController@myStore')->name('my-store');
+    Route::middleware('can:isSeller')->group(function (){
+
     });
 });

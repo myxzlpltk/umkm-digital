@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Buyer;
+use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
+use App\Policies\BuyerPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\SellerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Buyer::class => BuyerPolicy::class,
+        Seller::class => SellerPolicy::class,
     ];
 
     /**
@@ -28,23 +34,31 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('isAdmin', function (User $user){
-            return $user->role === 'admin';
+            return $user->isAdmin;
         });
 
         Gate::define('isBuyer', function (User $user){
-            return $user->role === 'buyer';
+            return $user->isBuyer;
         });
 
         Gate::define('isSeller', function (User $user){
-            return $user->role === 'seller';
+            return $user->isSeller;
+        });
+
+        Gate::define('isSellerHasStore', function (User $user){
+            return $user->isSeller && $user->seller !== null;
+        });
+
+        Gate::define('isAdminOrSeller', function (User $user){
+            return $user->isAdmin || $user->isSeller;
         });
 
         Gate::define('isBuyerOrSeller', function (User $user){
-            return $user->role === 'buyer' || $user->role === 'seller';
+            return $user->isBuyer || $user->isSeller;
         });
 
         Gate::define('isBuyerOrGuest', function (?User $user){
-            return $user === null || $user->role === 'buyer';
+            return $user === null || $user->isBuyer;
         });
     }
 }

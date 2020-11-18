@@ -63,4 +63,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->attributes['avatar'] ?: "default.jpg";
     }
 
+    public function getIsAdminAttribute(){
+        return $this->attributes['role'] === 'admin';
+    }
+
+    public function getIsSellerAttribute(){
+        return $this->attributes['role'] === 'seller';
+    }
+
+    public function getIsBuyerAttribute(){
+        return $this->attributes['role'] === 'buyer';
+    }
+
 }

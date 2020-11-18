@@ -38,10 +38,10 @@ class LoginController extends Controller{
 
     public function redirectToHome(Request $request){
         if(Gate::allows('isAdmin')){
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('manage');
         }
         else{
-            return redirect()->route('my-store');
+            return redirect()->route('manage');
         }
     }
 

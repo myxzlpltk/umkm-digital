@@ -1,8 +1,8 @@
 @extends('layouts.console.app')
 
-@section('title', 'Pembeli')
+@section('title', 'Penjual')
 
-@section('breadcrumbs', Breadcrumbs::render('admin.buyers.list'))
+@section('breadcrumbs', Breadcrumbs::render('manage.sellers.index'))
 
 @push('stylesheets')
     <link rel="stylesheet" href="{{ asset('vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -17,24 +17,31 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="mb-0">Data Pembeli</h3>
+            <h3 class="mb-0">Data Penjual</h3>
         </div>
         <div class="table-responsive py-4">
             <table class="table align-items-center table-flush" id="datatable-basic">
                 <thead class="thead-light">
-                    <tr>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Terdaftar</th>
-                        <th>Aksi</th>
-                    </tr>
+                <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Terdaftar</th>
+                    <th>Aksi</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach($buyers as $user)
+                @foreach($sellers as $user)
                     <tr>
                         <td>
-                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="avatar rounded-circle mr-3" alt="avatar">
-                            {{ $user->name }}
+                            <div class="row">
+                                <div class="col-auto">
+                                    <img src="{{ asset('storage/avatars/'.$user->avatar) }}" class="avatar rounded-circle" alt="avatar">
+                                </div>
+                                <div class="col">
+                                    <strong>{{ $user->name }}</strong><br>
+                                    <span class="small text-muted">{{ $user->seller ? $user->seller->store_name: '-' }}</span>
+                                </div>
+                            </div>
                         </td>
                         <td>
                             {{ $user->email }}
@@ -51,7 +58,7 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
             </table>
         </div>

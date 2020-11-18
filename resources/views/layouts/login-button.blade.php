@@ -15,7 +15,7 @@
                 <h6 class="text-overflow m-0">Selamat Datang!</h6>
             </div>
             @can('isAdmin')
-            <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
+            <a href="{{ route('manage') }}" class="dropdown-item">
                 <i class="ni ni-tv-2"></i>
                 <span>Konsol Admin</span>
             </a>

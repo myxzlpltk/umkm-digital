@@ -2,7 +2,7 @@
 
 @section('title', 'Toko Saya')
 
-@section('breadcrumbs', Breadcrumbs::render('my-store'))
+@section('breadcrumbs', Breadcrumbs::render('manage'))
 
 @push('stylesheets')
 @endpush

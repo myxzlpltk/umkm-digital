@@ -19,35 +19,42 @@
         </div>
         <div class="navbar-inner">
             <!-- Collapse -->
-            @can('isAdmin')
-                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                    <!-- Nav items -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('manage') ? 'active' : '' }}" href="{{ route('manage') }}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <!-- Heading -->
+                <h6 class="navbar-heading p-0 text-muted">
+                    <span class="docs-normal">Data Primer</span>
+                </h6>
+                <ul class="navbar-nav">
+                    @can('view-any', \App\Models\Buyer::class)
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::segment(2) == 'buyers' ? 'active' : '' }}" href="{{ route('manage.buyers.index') }}">
+                            <i class="ni ni-user-run text-orange"></i>
+                            <span class="nav-link-text">Pembeli</span>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('view-any', \App\Models\Seller::class)
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::segment(2) == 'sellers' ? 'active' : '' }}" href="{{ route('manage.sellers.index') }}">
+                            <i class="ni ni-shop text-primary"></i>
+                            <span class="nav-link-text">Penjual</span>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+                @can('isAdmin')
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                                <i class="ni ni-tv-2 text-primary"></i>
-                                <span class="nav-link-text">Dashboard</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr class="my-3">
-                    <!-- Heading -->
-                    <h6 class="navbar-heading p-0 text-muted">
-                        <span class="docs-normal">Data Primer</span>
-                    </h6>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) == 'buyers' ? 'active' : '' }}" href="{{ route('admin.buyers.list') }}">
-                                <i class="ni ni-user-run text-orange"></i>
-                                <span class="nav-link-text">Pembeli</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) == 'sellers' ? 'active' : '' }}" href="{{ route('admin.sellers.list') }}">
-                                <i class="ni ni-shop text-primary"></i>
-                                <span class="nav-link-text">Penjual</span>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="ni ni-box-2 text-yellow"></i>
@@ -76,23 +83,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
-            @elsecan('isSeller')
-                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                    <!-- Nav items -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('my-store') ? 'active' : '' }}" href="{{ route('my-store') }}">
-                                <i class="ni ni-shop text-primary"></i>
-                                <span class="nav-link-text">Toko Saya</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr class="my-3">
-                    <!-- Heading -->
-                    <h6 class="navbar-heading p-0 text-muted">
-                        <span class="docs-normal">Data Primer</span>
-                    </h6>
+                @elsecan('isSeller')
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -128,8 +119,8 @@
                             </a>
                         </li>
                     </ul>
-                </div>
-            @endcan
+                @endcan
+            </div>
         </div>
     </div>
 </nav>
