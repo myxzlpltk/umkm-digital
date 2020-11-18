@@ -7,6 +7,9 @@
 @push('stylesheets')
 @endpush
 
+@section('actions')
+@endsection
+
 @section('card-stats')
 @endsection
 

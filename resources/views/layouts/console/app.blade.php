@@ -66,6 +66,9 @@
                             @yield('breadcrumbs')
                         </nav>
                     </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        @yield('actions')
+                    </div>
                 </div>
                 <!-- Card stats -->
                 @yield('card-stats')
