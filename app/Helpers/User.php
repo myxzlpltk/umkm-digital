@@ -23,4 +23,8 @@ class User{
         }
     }
 
+    public static function idr($money){
+        return "Rp. ".str_replace(',','.',number_format($money));
+    }
+
 }

@@ -24,4 +24,12 @@ class Product extends Model
     public function carts(){
         return $this->hasMany('App\Models\Cart');
     }
+
+    public function getDiscountPriceAttribute(){
+        return round(($this->discount/100)*$this->price);
+    }
+
+    public function getPriceAfterDiscountAttribute(){
+        return round($this->price-$this->discountPrice);
+    }
 }

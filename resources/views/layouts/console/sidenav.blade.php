@@ -52,15 +52,18 @@
                         </a>
                     </li>
                     @endcan
+
+                    @can('view-any', \App\Models\Product::class)
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::segment(2) == 'products' ? 'active' : '' }}" href="{{ route('manage.product.index')  }}">
+                            <i class="ni ni-box-2 text-orange"></i>
+                            <span class="nav-link-text">Produk</span>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
                 @can('isAdmin')
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ni ni-box-2 text-yellow"></i>
-                                <span class="nav-link-text">Produk</span>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="ni ni-money-coins text-default"></i>
@@ -85,12 +88,6 @@
                     </ul>
                 @elsecan('isSeller')
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ni ni-box-2 text-orange"></i>
-                                <span class="nav-link-text">Produk</span>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="ni ni-tag text-primary"></i>

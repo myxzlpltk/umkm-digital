@@ -49,6 +49,10 @@ Route::middleware('auth')->group(function (){
         Route::prefix('sellers')->group(function (){
             Route::get('/', 'SellerController@index')->name('manage.sellers.index');
         });
+
+        Route::prefix('products')->group(function (){
+            Route::get('/', 'ProductController@index')->name('manage.product.index');
+        });
     });
 
     Route::middleware('can:isSeller')->group(function (){

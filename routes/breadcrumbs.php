@@ -24,3 +24,9 @@ Breadcrumbs::for('manage.sellers.index', function ($trail){
     $trail->parent('home');
     $trail->push('Penjual', route('manage.sellers.index'));
 });
+
+// Products
+Breadcrumbs::for('manage.products.index', function ($trail){
+    $trail->parent('home');
+    $trail->push('Produk', route('manage.product.index'));
+});
