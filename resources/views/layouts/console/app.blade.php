@@ -101,6 +101,7 @@
 <script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
 
 <!-- Custom Scripts -->
+<script src="{{ asset('vendor/sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 @stack('scripts')
 
 <!-- Argon JS -->

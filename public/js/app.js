@@ -20,3 +20,22 @@ if($('.input-stock').length > 0){
         $('.input-stock input').val(x+1);
     });
 }
+
+if($('.btn-delete').length > 0){
+    $('.btn-delete').click(function (){
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Anda akan menghapus data ini. Data yang terhapus tidak dapat dikembalikan",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus saja',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.value) {
+                $(this).closest('form').submit();
+            }
+        });
+    });
+}

@@ -120,10 +120,18 @@ class CategoryController extends Controller{
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Category $category)
-    {
-        //
+    public function destroy(Request $request, Category $category){
+        if($category->products()->count() > 0){
+            $request->session()->flash('error', 'Data tidak bisa dihapus karena masih terdapat produk dengan kategori tersebut.');
+            return Redirect::route('manage.categories.index');
+        }
+        else{
+            $category->delete();
+
+            $request->session()->flash('success', 'Data berhasil dihapus.');
+            return Redirect::route('manage.categories.index');
+        }
     }
 }

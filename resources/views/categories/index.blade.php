@@ -38,9 +38,13 @@
                             <a href="{{ route('manage.categories.edit', $category) }}" class="table-action" data-toggle="tooltip" data-original-title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#!" class="table-action" data-toggle="tooltip" data-original-title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form class="d-inline" action="{{ route('manage.categories.destroy', $category) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <a href="javascript:void(0)" class="table-action btn-delete" data-toggle="tooltip" data-original-title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
