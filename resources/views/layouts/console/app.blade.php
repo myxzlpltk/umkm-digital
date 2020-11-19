@@ -24,6 +24,12 @@
 
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset('css/argon.min.css') }}" rel="stylesheet">
+
+    <style>
+        .breadcrumb-item+.breadcrumb-item::before{
+            content: '/';
+        }
+    </style>
 </head>
 <body>
 
