@@ -16,8 +16,9 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between">
             <h3 class="mb-0">Data Kategori</h3>
+            <a href="{{ route('manage.categories.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-fw"></i> Tambah Data</a>
         </div>
         <div class="table-responsive py-4">
             <table class="table align-items-center table-flush" id="datatable-basic">

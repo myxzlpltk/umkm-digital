@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller{
 
@@ -33,20 +34,37 @@ class CategoryController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+        Gate::authorize('create', Category::class);
+
+        return Response::view('categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $request->validate([
+            'category_name' => [
+                'required',
+                'string',
+                Rule::unique(Category::class, 'name')->where(function ($query) use($request){
+                    return $query->where('seller_id', $request->user()->seller->id);
+                })
+            ]
+        ]);
+
+        $category = new Category;
+        $category->seller_id = $request->user()->seller->id;
+        $category->name = $request->category_name;
+        $category->save();
+
+        $request->session()->flash('success', 'Data berhasil ditambahkan.');
+
+        return Redirect::route('manage.categories.index');
     }
 
     /**

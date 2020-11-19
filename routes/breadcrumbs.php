@@ -37,8 +37,14 @@ Breadcrumbs::for('manage.products.show', function ($trail, $product){
     $trail->push('Lihat Produk', route('manage.products.show', $product));
 });
 
-// Categories
+// Kategori
 Breadcrumbs::for('manage.categories.index', function ($trail){
     $trail->parent('home');
     $trail->push('Kategori', route('manage.categories.index'));
+});
+
+// Kategori > Tambah Kategori
+Breadcrumbs::for('manage.categories.create', function ($trail){
+    $trail->parent('manage.categories.index');
+    $trail->push('Tambah Kategori', route('manage.categories.create'));
 });

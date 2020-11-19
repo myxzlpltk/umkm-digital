@@ -9,6 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+    ];
+
     public function seller(){
         return $this->belongsTo('App\Models\Seller');
     }

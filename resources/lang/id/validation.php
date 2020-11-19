@@ -152,6 +152,7 @@ return [
         'address' => 'Alamat lengkap',
         'avatar' => 'Foto profil',
         'bank_id' => 'Nama bank',
+        'category_name' => 'Nama kategori',
         'current_password' => 'Kata sandi saat ini',
         'email' => 'Alamat email',
         'name' => 'Nama lengkap',
