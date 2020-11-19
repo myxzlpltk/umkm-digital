@@ -48,3 +48,9 @@ Breadcrumbs::for('manage.categories.create', function ($trail){
     $trail->parent('manage.categories.index');
     $trail->push('Tambah Kategori', route('manage.categories.create'));
 });
+
+// Kategori > Edit Kategori
+Breadcrumbs::for('manage.categories.edit', function ($trail, $category){
+    $trail->parent('manage.categories.index');
+    $trail->push('Edit Kategori', route('manage.categories.edit', $category));
+});

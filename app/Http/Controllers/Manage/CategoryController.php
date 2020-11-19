@@ -84,9 +84,10 @@ class CategoryController extends Controller{
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
-    {
-        //
+    public function edit(Category $category){
+        return Response::view('categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -94,11 +95,25 @@ class CategoryController extends Controller{
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Category $category)
-    {
-        //
+    public function update(Request $request, Category $category){
+        $request->validate([
+            'category_name' => [
+                'required',
+                'string',
+                Rule::unique(Category::class, 'name')->where(function ($query) use($request){
+                    return $query->where('seller_id', $request->user()->seller->id);
+                })->ignore($category->id)
+            ]
+        ]);
+
+        $category->name = $request->category_name;
+        $category->save();
+
+        $request->session()->flash('success', 'Data berhasil diperbarui.');
+
+        return Redirect::route('manage.categories.index');
     }
 
     /**

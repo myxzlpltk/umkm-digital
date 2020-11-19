@@ -35,7 +35,7 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->products->count() }} Produk</td>
                         <td>
-                            <a href="#!" class="table-action" data-toggle="tooltip" data-original-title="Edit">
+                            <a href="{{ route('manage.categories.edit', $category) }}" class="table-action" data-toggle="tooltip" data-original-title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a href="#!" class="table-action" data-toggle="tooltip" data-original-title="Hapus">

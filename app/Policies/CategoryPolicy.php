@@ -53,7 +53,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category)
     {
-        //
+        return $user->isSeller && optional($user->seller)->id == $category->seller_id;
     }
 
     /**
