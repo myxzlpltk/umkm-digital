@@ -40,8 +40,21 @@ class LoginController extends Controller{
         if(Gate::allows('isAdmin')){
             return redirect()->route('manage');
         }
+        elseif(Gate::allows('isSeller')){
+            if(auth()->user()->seller){
+                return redirect()->route('manage');
+            }
+            else{
+                return redirect()->route('profile');
+            }
+        }
+        elseif(Gate::allows('isBuyer')){
+            return redirect()->route('home');
+        }
         else{
-            return redirect()->route('manage');
+            auth()->logout();
+
+            return redirect()->route('login');
         }
     }
 
