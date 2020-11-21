@@ -18,7 +18,9 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h3 class="mb-0">Data Kategori</h3>
+            @can('create', App\Models\Category::class)
             <a href="{{ route('manage.categories.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-fw"></i> Tambah Data</a>
+            @endcan
         </div>
         <div class="table-responsive py-4">
             <table class="table align-items-center table-flush" id="datatable-basic">
@@ -35,9 +37,13 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->products->count() }} Produk</td>
                         <td>
+                            @can('update', $category)
                             <a href="{{ route('manage.categories.edit', $category) }}" class="table-action" data-toggle="tooltip" data-original-title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            @endcan
+
+                            @can('delete', $category)
                             <form class="d-inline" action="{{ route('manage.categories.destroy', $category) }}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -45,6 +51,7 @@
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

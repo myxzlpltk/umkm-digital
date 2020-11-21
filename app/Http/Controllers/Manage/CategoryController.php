@@ -47,6 +47,8 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request){
+        Gate::authorize('create', Category::class);
+
         $request->validate([
             'category_name' => [
                 'required',
@@ -85,6 +87,8 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category){
+        Gate::authorize('update', $category);
+
         return view('categories.edit', [
             'category' => $category
         ]);
@@ -98,6 +102,8 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Category $category){
+        Gate::authorize('update', $category);
+
         $request->validate([
             'category_name' => [
                 'required',
@@ -123,6 +129,8 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, Category $category){
+        Gate::authorize('delete', $category);
+
         if($category->products()->count() > 0){
             $request->session()->flash('error', 'Data tidak bisa dihapus karena masih terdapat produk dengan kategori tersebut.');
             return redirect()->route('manage.categories.index');
