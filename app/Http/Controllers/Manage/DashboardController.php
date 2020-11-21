@@ -12,11 +12,11 @@ class DashboardController extends Controller{
 
     public function index(){
         if(Gate::allows('isAdmin')){
-            return Response::view('manage.admin');
+            return view('manage.admin');
         }
         elseif(Gate::allows('isSeller')){
-            return Response::view('manage.seller', [
-                'seller' => Auth::user()->seller,
+            return view('manage.seller', [
+                'seller' => auth()->user()->seller,
             ]);
         }
 

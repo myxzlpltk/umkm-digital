@@ -23,7 +23,7 @@ class BuyerController extends Controller{
             ->where('role', 'buyer')
             ->get();
 
-        return Response::view('buyers.index', [
+        return view('buyers.index', [
             'buyers' => $buyers
         ]);
     }

@@ -20,7 +20,7 @@ class CategoryController extends Controller{
     public function index(Request $request){
         Gate::authorize('view-any', Category::class);
 
-        return Response::view('categories.index', [
+        return view('categories.index', [
             'categories' => $request->user()
                 ->seller
                 ->categories()
@@ -37,7 +37,7 @@ class CategoryController extends Controller{
     public function create(){
         Gate::authorize('create', Category::class);
 
-        return Response::view('categories.create');
+        return view('categories.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryController extends Controller{
 
         $request->session()->flash('success', 'Data berhasil ditambahkan.');
 
-        return Redirect::route('manage.categories.index');
+        return redirect()->route('manage.categories.index');
     }
 
     /**
@@ -85,7 +85,7 @@ class CategoryController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category){
-        return Response::view('categories.edit', [
+        return view('categories.edit', [
             'category' => $category
         ]);
     }
@@ -113,7 +113,7 @@ class CategoryController extends Controller{
 
         $request->session()->flash('success', 'Data berhasil diperbarui.');
 
-        return Redirect::route('manage.categories.index');
+        return redirect()->route('manage.categories.index');
     }
 
     /**
@@ -125,13 +125,13 @@ class CategoryController extends Controller{
     public function destroy(Request $request, Category $category){
         if($category->products()->count() > 0){
             $request->session()->flash('error', 'Data tidak bisa dihapus karena masih terdapat produk dengan kategori tersebut.');
-            return Redirect::route('manage.categories.index');
+            return redirect()->route('manage.categories.index');
         }
         else{
             $category->delete();
 
             $request->session()->flash('success', 'Data berhasil dihapus.');
-            return Redirect::route('manage.categories.index');
+            return redirect()->route('manage.categories.index');
         }
     }
 }

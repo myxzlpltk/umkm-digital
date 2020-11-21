@@ -19,7 +19,7 @@ class ProductController extends Controller{
         Gate::authorize('view-any', Product::class);
 
         if(Gate::allows('isSeller')){
-            return Response::view('products.index', [
+            return view('products.index', [
                 'products' => $request->user()
                     ->seller
                     ->products()
@@ -28,7 +28,7 @@ class ProductController extends Controller{
             ]);
         }
         elseif(Gate::allows('isAdmin')){
-            return Response::view('products.index', [
+            return view('products.index', [
                 'products' => Product::with([
                     'category',
                     'seller',
@@ -68,7 +68,7 @@ class ProductController extends Controller{
     {
         Gate::authorize('view', $product);
 
-        return Response::view('products.show', [
+        return view('products.show', [
             'product' => $product
         ]);
     }

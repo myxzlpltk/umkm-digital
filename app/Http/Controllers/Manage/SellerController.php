@@ -23,7 +23,7 @@ class SellerController extends Controller{
             ->where('role', 'seller')
             ->get();
 
-        return Response::view('sellers.index', [
+        return view('sellers.index', [
             'sellers' => $sellers
         ]);
     }

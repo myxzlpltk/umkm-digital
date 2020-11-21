@@ -25,7 +25,7 @@ class SellerController extends Controller{
     public function myStore(Request $request){
         $seller = $request->user()->seller;
 
-        return Response::view('sellers.manage', [
+        return view('sellers.manage', [
             'seller' => $seller
         ]);
     }
