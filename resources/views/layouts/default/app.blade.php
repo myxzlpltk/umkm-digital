@@ -54,6 +54,9 @@
     <!-- JSCookie -->
     <script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
 
+    <script src="{{ asset('vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js') }}"></script>
+
     <!-- Custom Scripts -->
     @stack('scripts')
 
