@@ -60,7 +60,7 @@
                     <h5 class="h3 mb-0">Info Produk</h5>
                     <div>
                         @can('update', $product)
-                        <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-fw"></i> Edit</a>
+                        <a href="{{ route('manage.products.edit', $product) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-fw"></i> Edit</a>
                         @endcan
                         @can('delete', $product)
                         <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i> Hapus</a>

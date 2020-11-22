@@ -112,12 +112,17 @@ class ProductController extends Controller{
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
-    {
-        //
+    public function edit(Request $request, Product $product){
+        Gate::authorize('update', $product);
+
+        return view('products.edit', [
+            'product' => $product,
+            'categories' => $request->user()->seller->categories,
+        ]);
     }
 
     /**
@@ -127,9 +132,39 @@ class ProductController extends Controller{
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
-    {
-        //
+    public function update(Request $request, Product $product){
+        Gate::authorize('create', Product::class);
+
+        $request->validate([
+            'image' => 'nullable|image|dimensions:min_width=200,min_height=200',
+            'food_name' => 'required|string',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|integer|min:1000',
+            'discount' => 'required|integer|min:0|max:95',
+        ]);
+
+        if($request->file('image')){
+            $image = Image::make($request->file('image'));
+            $dim = min($image->width(), $image->height(), 500);
+
+            $filename = Str::random(64).'.jpg';
+            Storage::put("products/$filename", $image->fit($dim)->encode('jpg', 80));
+
+            $product->image = $filename;
+        }
+
+        $product->category_id = $request->category_id;
+        $product->name = $request->food_name;
+        $product->description = $request->description;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->save();
+
+        $request->session()->flash('success', 'Data produk telah diperbarui.');
+
+        return redirect()->route('manage.products.show', $product);
     }
 
     /**

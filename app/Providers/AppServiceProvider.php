@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
+use App\Observers\ProductObserver;
 use App\Observers\SellerObserver;
 use App\Observers\UserObserver;
 use Carbon\Carbon;
@@ -29,8 +31,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        User::observe(UserObserver::class);
+        Product::observe(ProductObserver::class);
         Seller::observe(SellerObserver::class);
+        User::observe(UserObserver::class);
 
         Relation::morphMap([
             'buyer' => 'App\Models\Buyer',
