@@ -54,7 +54,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isSeller && $user->seller;
     }
 
     /**

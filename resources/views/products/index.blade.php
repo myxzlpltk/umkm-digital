@@ -16,24 +16,27 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between">
             <h3 class="mb-0">Data Produk</h3>
+            @can('create', App\Models\Product::class)
+            <a href="{{ route('manage.products.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus fa-fw"></i> Tambah Data</a>
+            @endcan
         </div>
         <div class="table-responsive py-4">
             <table class="table align-items-center table-flush" id="datatable-basic">
                 <thead class="thead-light">
-                <tr>
-                    @can('isAdmin')
-                    <th>Toko</th>
-                    @endcan
-                    <th>Nama</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                    <th>Aksi</th>
-                </tr>
+                    <tr>
+                        @can('isAdmin')
+                        <th>Toko</th>
+                        @endcan
+                        <th>Nama</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Aksi</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($products as $product)
+                    @foreach($products as $product)
                     <tr>
                         @can('isAdmin')
                         <td><a href="#">{{ $product->seller->store_name }}</a></td>
@@ -58,7 +61,7 @@
                             </a>
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>

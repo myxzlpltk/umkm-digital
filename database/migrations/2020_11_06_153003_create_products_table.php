@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('seller_id');
             $table->foreignId('category_id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->default("");
             $table->unsignedInteger('price');
             $table->unsignedInteger('discount')->default(0);
             $table->unsignedInteger('stock')->default(0);

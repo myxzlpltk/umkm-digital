@@ -9,6 +9,13 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $attributes = [
+        'description' => '',
+        'discount' => 0,
+        'rating' => null,
+        'stock' => 0,
+    ];
+
     public function seller(){
         return $this->belongsTo('App\Models\Seller');
     }

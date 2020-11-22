@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller{
 
@@ -40,11 +43,15 @@ class ProductController extends Controller{
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(Request $request){
+        Gate::authorize('create', Product::class);
+
+        return view('products.create', [
+            'categories' => $request->user()->seller->categories
+        ]);
     }
 
     /**
@@ -53,9 +60,38 @@ class ProductController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        Gate::authorize('create', Product::class);
+
+        $request->validate([
+            'image' => 'required|image|dimensions:min_width=200,min_height=200',
+            'food_name' => 'required|string',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|integer|min:1000',
+            'discount' => 'required|integer|min:0|max:95',
+        ]);
+
+        $image = Image::make($request->file('image'));
+        $dim = min($image->width(), $image->height(), 500);
+
+        $filename = Str::random(64).'.jpg';
+        Storage::put("products/$filename", $image->fit($dim)->encode('jpg', 80));
+
+        $product = new Product;
+        $product->seller_id = $request->user()->seller->id;
+        $product->category_id = $request->category_id;
+        $product->image = $filename;
+        $product->name = $request->food_name;
+        $product->description = $request->description;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->save();
+
+        $request->session()->flash('success', 'Data produk telah ditambahkan.');
+
+        return redirect()->route('manage.products.index');
     }
 
     /**
