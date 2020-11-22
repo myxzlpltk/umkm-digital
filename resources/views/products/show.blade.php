@@ -63,7 +63,11 @@
                         <a href="{{ route('manage.products.edit', $product) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-fw"></i> Edit</a>
                         @endcan
                         @can('delete', $product)
-                        <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i> Hapus</a>
+                        <form class="d-inline" action="{{ route('manage.products.destroy', $product) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-delete"><i class="fa fa-trash fa-fw"></i> Hapus</a>
+                        </form>
                         @endcan
                     </div>
                 </div>

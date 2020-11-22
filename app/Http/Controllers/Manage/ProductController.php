@@ -170,11 +170,18 @@ class ProductController extends Controller{
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, Product $product)
     {
-        //
+        Gate::authorize('delete', $product);
+
+        $product->delete();
+
+        $request->session()->flash('success', 'Data produk telah dihapus.');
+
+        return redirect()->route('manage.products.index');
     }
 }

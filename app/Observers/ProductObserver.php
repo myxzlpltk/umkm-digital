@@ -42,7 +42,9 @@ class ProductObserver
      */
     public function deleted(Product $product)
     {
-        //
+        if(Storage::exists("products/{$product->image}")){
+            Storage::delete("products/{$product->image}");
+        }
     }
 
     /**
