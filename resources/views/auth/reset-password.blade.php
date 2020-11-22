@@ -51,7 +51,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Email" type="email" name="email" value="{{ $request->email ?: old('email') }}" required>
+                                    <input class="form-control" placeholder="Email" type="email" name="email" value="{{ old('email', $request->email) }}" required>
                                 </div>
                                 @error('email')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>

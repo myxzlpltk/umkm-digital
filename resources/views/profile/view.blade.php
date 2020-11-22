@@ -90,7 +90,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-name">Nama Lengkap <x-required/></label>
-                                        <input type="text" id="input-name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" value="{{ old('name') ?: $user->name }}" required>
+                                        <input type="text" id="input-name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap" value="{{ old('name', $user->name) }}" required>
                                         @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -100,7 +100,7 @@
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">Email address <x-required/></label>
                                         <div class="input-group input-group-merge">
-                                            <input type="email" id="input-email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Alamat Email" value="{{ old('email') ?: $user->email }}" required>
+                                            <input type="email" id="input-email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Alamat Email" value="{{ old('email', $user->email) }}" required>
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     @if($user->hasVerifiedEmail())
@@ -163,7 +163,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label" for="input-store-name">Nama Toko <x-required/></label>
-                                                <input id="input-store-name" name="store_name" class="form-control @error('store_name') is-invalid @enderror" placeholder="Masukkan nama toko" value="{{ old('store_name') ?: optional($user->userable)->store_name }}" type="text" required>
+                                                <input id="input-store-name" name="store_name" class="form-control @error('store_name') is-invalid @enderror" placeholder="Masukkan nama toko" value="{{ old('store_name', optional($user->userable)->store_name) }}" type="text" required>
                                                 @error('store_name')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
@@ -171,7 +171,7 @@
                                         @endcan
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address">Alamat Lengkap <x-required/></label>
-                                            <input id="input-address" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Masukkan alamat lengkap" value="{{ old('address') ?: optional($user->userable)->address }}" type="text" required>
+                                            <input id="input-address" name="address" class="form-control @error('address') is-invalid @enderror" placeholder="Masukkan alamat lengkap" value="{{ old('address', optional($user->userable)->address) }}" type="text" required>
                                             @error('address')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -182,7 +182,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">+62</span>
                                                 </div>
-                                                <input id="input-phone-number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Masukkan nomor HP" value="{{ old('phone_number') ?: optional($user->userable)->phone_number }}" type="text" required>
+                                                <input id="input-phone-number" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" placeholder="Masukkan nomor HP" value="{{ old('phone_number', optional($user->userable)->phone_number) }}" type="text" required>
                                             </div>
                                             @error('phone_number')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -195,7 +195,7 @@
                                             <select class="form-control @error('bank_id') is-invalid @enderror" name="bank_id" data-toggle="select" required>
                                                 <option disabled hidden selected>--Pilih Bank--</option>
                                                 @foreach($banks as $bank)
-                                                    <option value="{{ $bank->id }}" @if((old('bank_id') ?: optional($user->userable)->bank_id) == $bank->id) selected @endif>{{ $bank->name }}</option>
+                                                    <option value="{{ $bank->id }}" @if(old('bank_id', optional($user->userable)->bank_id) == $bank->id) selected @endif>{{ $bank->name }}</option>
                                                 @endforeach
                                             </select>
                                             @error('bank_id')
@@ -206,7 +206,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-account-number">Nomor Rekening <x-required/></label>
-                                            <input type="text" id="input-account-number" name="account_number" class="form-control @error('account_number') is-invalid @enderror" placeholder="Masukkan nomor rekening" value="{{ old('account_number') ?: optional($user->userable)->account_number }}" required>
+                                            <input type="text" id="input-account-number" name="account_number" class="form-control @error('account_number') is-invalid @enderror" placeholder="Masukkan nomor rekening" value="{{ old('account_number', optional($user->userable)->account_number) }}" required>
                                         </div>
                                         @error('account_number')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -215,7 +215,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-account-name">Atas Nama <x-required/></label>
-                                            <input type="text" id="input-account-name" name="account_name" class="form-control @error('account_name') is-invalid @enderror" placeholder="Masukkan atas nama rekening" value="{{ old('account_name') ?: optional($user->userable)->account_name }}" required>
+                                            <input type="text" id="input-account-name" name="account_name" class="form-control @error('account_name') is-invalid @enderror" placeholder="Masukkan atas nama rekening" value="{{ old('account_name', optional($user->userable)->account_name) }}" required>
                                         </div>
                                         @error('account_name')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>

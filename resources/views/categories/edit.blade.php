@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label for="input-name">Nama Kategori</label>
-                    <input type="text" id="input-name" name="category_name" class="form-control @error('category_name') is-invalid @enderror" value="{{ old('name') ?: $category->name }}" placeholder="Masukkan nama kategori" autofocus required>
+                    <input type="text" id="input-name" name="category_name" class="form-control @error('category_name') is-invalid @enderror" value="{{ old('name', $category->name) }}" placeholder="Masukkan nama kategori" autofocus required>
                     @error('category_name')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
