@@ -28,6 +28,7 @@
 <body class="@yield('body.className')">
 
     @section('simple')
+        <div class="scrollbar-inner"></div>
         <!-- Navbar -->
         @include('layouts.default.navbar')
 
