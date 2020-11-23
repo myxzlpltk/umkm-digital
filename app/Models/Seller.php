@@ -9,16 +9,6 @@ class Seller extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'account_name',
-        'account_number',
-        'address',
-        'bank_id',
-        'phone_number',
-        'store_name',
-        'user_id',
-    ];
-
     public function bank(){
         return $this->belongsTo('App\Models\Bank');
     }
