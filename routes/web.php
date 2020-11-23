@@ -23,7 +23,7 @@ Route::get('register/google/callback', 'RegisterController@handleProviderCallbac
 Route::middleware('can:isBuyerOrGuest')->group(function (){
     Route::get('search', 'ProductController@search')->name('search');
     Route::get('cart', 'CartController@index')->name('carts.index');
-    Route::get('cart/{product}', 'CartController@show')->name('carts.add');
+    Route::get('cart/{product}', 'CartController@store')->name('carts.add');
     Route::delete('cart/{cart}', 'CartController@destroy')->name('carts.destroy');
     Route::patch('cart/{cart}', 'CartController@update')->name('carts.update');
 });

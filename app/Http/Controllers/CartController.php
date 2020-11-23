@@ -19,6 +19,20 @@ class CartController extends Controller{
                 ->carts()
                 ->with('product.seller')
                 ->get()
+                ->filter(function (Cart $cart){
+                    if($cart->product->stock == 0){
+                        $cart->delete();
+                    }
+                    elseif($cart->qty > $cart->product->stock){
+                        $cart->qty = $cart->product->stock;
+                        $cart->save();
+
+                        return $cart;
+                    }
+                    else{
+                        return $cart;
+                    }
+                })
                 ->groupBy('product.seller.id');
         }
 
@@ -42,7 +56,9 @@ class CartController extends Controller{
         ]);
 
         $cart->qty++;
-        $cart->save();
+        if($cart->qty <= $product->stock){
+            $cart->save();
+        }
 
         return redirect()->back();
     }
@@ -54,11 +70,21 @@ class CartController extends Controller{
             'qty' => 'required|integer|min:1'
         ]);
 
-        $cart->qty = $request->qty;
-        $cart->save();
+        if($request->qty > $cart->product->stock){
+            $cart->qty = $cart->product->stock;
+            $cart->save();
 
-        $request->session()->flash('success', 'Jumlah produk berhasil diperbarui');
-        return redirect()->route('carts.index');
+            return redirect()->route('carts.index')->with([
+                'error' => 'Jumlah produk tidak mencukupi'
+            ]);
+        }
+        else{
+            $cart->qty = $request->qty;
+            $cart->save();
+
+            $request->session()->flash('success', 'Jumlah produk berhasil diperbarui');
+            return redirect()->route('carts.index');
+        }
     }
 
     public function destroy(Request $request, Cart $cart){

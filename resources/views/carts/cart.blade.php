@@ -50,7 +50,7 @@
                                             @method('PATCH')
 
                                             <div class="form-group mb-0">
-                                                <input type="number" value="{{ old('qty', $cart->qty) }}" class="form-control form-control-sm text-center @error('qty') is-invalid @enderror" name="qty" min="1" required>
+                                                <input type="number" value="{{ old('qty', $cart->qty) }}" class="form-control form-control-sm text-center @error('qty') is-invalid @enderror" name="qty" min="1" max="{{ $cart->product->stock }}" required>
                                                 @error('qty')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
