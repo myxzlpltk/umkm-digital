@@ -28,7 +28,7 @@ class ProductObserver
     {
         if($product->wasChanged('image')){
             $oldImage = $product->getOriginal('image');
-            if(Storage::exists("products/$oldImage")){
+            if($oldImage != 'default.jpg' && Storage::exists("products/$oldImage")){
                 Storage::delete("products/$oldImage");
             }
         }
@@ -42,7 +42,7 @@ class ProductObserver
      */
     public function deleted(Product $product)
     {
-        if(Storage::exists("products/{$product->image}")){
+        if($product->image != 'default.jpg' && Storage::exists("products/{$product->image}")){
             Storage::delete("products/{$product->image}");
         }
     }
