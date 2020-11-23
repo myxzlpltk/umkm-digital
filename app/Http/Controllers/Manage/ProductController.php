@@ -89,9 +89,9 @@ class ProductController extends Controller{
         $product->discount = $request->discount;
         $product->save();
 
-        $request->session()->flash('success', 'Data produk telah ditambahkan.');
-
-        return redirect()->route('manage.products.index');
+        return redirect()->route('manage.products.index')->with([
+            'success' => 'Data produk telah ditambahkan.'
+        ]);
     }
 
     /**
@@ -162,9 +162,9 @@ class ProductController extends Controller{
         $product->discount = $request->discount;
         $product->save();
 
-        $request->session()->flash('success', 'Data produk telah diperbarui.');
-
-        return redirect()->route('manage.products.show', $product);
+        return redirect()->route('manage.products.show', $product)->with([
+            'success' => 'Data produk telah diperbarui.'
+        ]);
     }
 
     /**
@@ -180,8 +180,9 @@ class ProductController extends Controller{
         $product->stock = $request->stock;
         $product->save();
 
-        $request->session()->flash('success', 'Stok produk telah diperbarui.');
-        return redirect()->route('manage.products.show', $product);
+        return redirect()->route('manage.products.show', $product)->with([
+            'success' => 'Stok produk telah diperbarui.'
+        ]);
     }
 
     /**
@@ -197,8 +198,8 @@ class ProductController extends Controller{
 
         $product->delete();
 
-        $request->session()->flash('success', 'Data produk telah dihapus.');
-
-        return redirect()->route('manage.products.index');
+        return redirect()->route('manage.products.index')->with([
+            'success' => 'Data produk telah dihapus.'
+        ]);
     }
 }

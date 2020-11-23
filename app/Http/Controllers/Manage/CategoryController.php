@@ -64,9 +64,9 @@ class CategoryController extends Controller{
         $category->name = $request->category_name;
         $category->save();
 
-        $request->session()->flash('success', 'Data berhasil ditambahkan.');
-
-        return redirect()->route('manage.categories.index');
+        return redirect()->route('manage.categories.index')->with([
+            'success' => 'Data berhasil ditambahkan.'
+        ]);
     }
 
     /**
@@ -117,9 +117,9 @@ class CategoryController extends Controller{
         $category->name = $request->category_name;
         $category->save();
 
-        $request->session()->flash('success', 'Data berhasil diperbarui.');
-
-        return redirect()->route('manage.categories.index');
+        return redirect()->route('manage.categories.index')->with([
+            'success' => 'Data berhasil diperbarui.'
+        ]);
     }
 
     /**
@@ -132,14 +132,16 @@ class CategoryController extends Controller{
         Gate::authorize('delete', $category);
 
         if($category->products()->count() > 0){
-            $request->session()->flash('error', 'Data tidak bisa dihapus karena masih terdapat produk dengan kategori tersebut.');
-            return redirect()->route('manage.categories.index');
+            return redirect()->route('manage.categories.index')->with([
+                'error' => 'Data tidak bisa dihapus karena masih terdapat produk dengan kategori tersebut.'
+            ]);
         }
         else{
             $category->delete();
 
-            $request->session()->flash('success', 'Data berhasil dihapus.');
-            return redirect()->route('manage.categories.index');
+            return redirect()->route('manage.categories.index')->with([
+                'success' => 'Data berhasil dihapus.'
+            ]);
         }
     }
 }

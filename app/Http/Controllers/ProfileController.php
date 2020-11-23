@@ -47,9 +47,9 @@ class ProfileController extends Controller{
                 ->user();
 
             if(User::where('google_email', $googleUser->getEmail())->first()){
-                $request->session()->flash('error', 'Akun sudah terdaftar.');
-
-                return redirect()->route('profile');
+                return redirect()->route('profile')->with([
+                    'error' => 'Akun sudah terdaftar.'
+                ]);
             }
 
             $user = $request->user();
@@ -58,13 +58,13 @@ class ProfileController extends Controller{
             $user->google_avatar = $googleUser->getAvatar();
             $user->save();
 
-            $request->session()->flash('success', 'Akun Google telah kaitkan.');
-
-            return redirect()->route('profile');
+            return redirect()->route('profile')->with([
+                'success' => 'Akun Google telah kaitkan.'
+            ]);
         } catch (\Exception $e){
-            $request->session()->flash('error', 'Uppss.. Terjadi kesalahan server. Coba lagi nanti!');
-
-            return redirect()->route('profile');
+            return redirect()->route('profile')->with([
+                'error' => 'Uppss.. Terjadi kesalahan server. Coba lagi nanti!'
+            ]);
         }
     }
 
@@ -74,8 +74,9 @@ class ProfileController extends Controller{
         }
 
         if($request->user()->password == ''){
-            $request->session()->flash('error', 'Kamu tidak bisa memutuskan akun Google sebelum menambahkan kata sandi.');
-            return redirect()->route('profile');
+            return redirect()->route('profile')->with([
+                'error' => 'Kamu tidak bisa memutuskan akun Google sebelum menambahkan kata sandi.'
+            ]);
         }
 
         $user = $request->user();
@@ -84,9 +85,9 @@ class ProfileController extends Controller{
         $user->google_avatar = NULL;
         $user->save();
 
-        $request->session()->flash('success', 'Akun Google telah diputuskan.');
-
-        return redirect()->route('profile');
+        return redirect()->route('profile')->with([
+            'success' => 'Akun Google telah diputuskan.'
+        ]);
     }
 
     public function showAvatar(Request $request){
@@ -110,9 +111,9 @@ class ProfileController extends Controller{
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $request->session()->flash('success', 'Kata sandi telah ditambahkan.');
-
-        return redirect()->route('profile');
+        return redirect()->route('profile')->with([
+            'success' => 'Kata sandi telah ditambahkan.'
+        ]);
     }
 
     public function updateSeller(Request $request){
@@ -161,9 +162,9 @@ class ProfileController extends Controller{
             $seller->save();
         }
 
-        $request->session()->flash('success', 'Data penjual telah diperbarui.');
-
-        return redirect()->route('profile');
+        return redirect()->route('profile')->with([
+            'success' => 'Data penjual telah diperbarui.'
+        ]);
     }
 
     public function updateBuyer(Request $request){
@@ -186,8 +187,8 @@ class ProfileController extends Controller{
             ],
         );
 
-        $request->session()->flash('success', 'Data pembeli telah diperbarui.');
-
-        return redirect()->route('profile');
+        return redirect()->route('profile')->with([
+            'success' => 'Data pembeli telah diperbarui.'
+        ]);
     }
 }

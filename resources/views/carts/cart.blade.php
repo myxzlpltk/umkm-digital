@@ -19,6 +19,8 @@
 @section('content')
     <div class="container-fluid bg-gradient-indigo">
         <div class="container py-5">
+            @include('layouts.flash')
+
             <h1 class="text-center text-white">Keranjang Saya</h1>
 
             @if($carts->count())

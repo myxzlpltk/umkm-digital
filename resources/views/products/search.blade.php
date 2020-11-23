@@ -91,6 +91,11 @@
                             <a class="nav-link @if($isStore) active @endif" href="{{ route('search', ['q' => $q, 'store' => true]) }}">Toko</a>
                         </li>
                     </ul>
+
+                </div>
+
+                <div class="col-12 p-2">
+                    @include('layouts.flash')
                 </div>
 
                 @foreach($products as $product)

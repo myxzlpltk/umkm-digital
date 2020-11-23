@@ -46,8 +46,9 @@ class CartController extends Controller{
             return view('carts.login-request');
         }
         elseif ($request->user()->buyer == null){
-            $request->session('error', 'Kamu harus mengisi info pembeli terlebih dahulu.');
-            return redirect()->route('profile');
+            return redirect()->route('profile')->with([
+                'error' => 'Kamu harus mengisi info pembeli terlebih dahulu.'
+            ]);
         }
 
         $cart = Cart::firstOrNew([
@@ -60,7 +61,9 @@ class CartController extends Controller{
             $cart->save();
         }
 
-        return redirect()->back();
+        return redirect()->back()->with([
+            'success' => 'Produk telah ditambahkan ke keranjang.'
+        ]);
     }
 
     public function update(Request $request, Cart $cart){
@@ -82,8 +85,9 @@ class CartController extends Controller{
             $cart->qty = $request->qty;
             $cart->save();
 
-            $request->session()->flash('success', 'Jumlah produk berhasil diperbarui');
-            return redirect()->route('carts.index');
+            return redirect()->route('carts.index')->with([
+                'success' => 'Jumlah produk berhasil diperbarui.'
+            ]);
         }
     }
 
@@ -92,7 +96,8 @@ class CartController extends Controller{
 
         $cart->delete();
 
-        $request->session()->flash('success', 'Produk berhasil dihapus dari keranjang');
-        return redirect()->route('carts.index');
+        return redirect()->route('carts.index')->with([
+            'success' => 'Produk berhasil dihapus dari keranjang'
+        ]);
     }
 }
