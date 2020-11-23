@@ -44,7 +44,10 @@ Route::middleware('auth')->group(function (){
 
         Route::resource('buyers', BuyerController::class, ['as' => 'manage']);
         Route::resource('sellers', SellerController::class, ['as' => 'manage']);
+
         Route::resource('products', ProductController::class, ['as' => 'manage']);
+        Route::patch('products/{product}/update-stock', 'ProductController@updateStock')->name('manage.products.update-stock');
+
         Route::resource('categories', CategoryController::class, ['as' => 'manage']);
     });
 

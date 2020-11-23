@@ -168,6 +168,23 @@ class ProductController extends Controller{
     }
 
     /**
+     * Update Stock
+     *
+     * @param Request $request
+     */
+    public function updateStock(Request $request, Product $product){
+        Gate::authorize('update', $product);
+
+        $request->validate(['stock' => 'required|integer|min:0']);
+
+        $product->stock = $request->stock;
+        $product->save();
+
+        $request->session()->flash('success', 'Stok produk telah diperbarui.');
+        return redirect()->route('manage.products.show', $product);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request

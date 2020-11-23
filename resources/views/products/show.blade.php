@@ -36,18 +36,26 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="h3 card-title">Stok Tersedia</h5>
-                    <div class="form-group input-stock">
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+                    <form action="{{ route('manage.products.update-stock', $product) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="form-group input-stock">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+                                </div>
+                                <input type="number" value="{{ old('stock', $product->stock) }}" class="form-control text-center @error('stock') is-invalid @enderror" name="stock" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                                </div>
                             </div>
-                            <input type="number" value="{{ $product->stock }}" class="form-control text-center">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
-                            </div>
+                            @error('stock')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
-                    </div>
-                    <button class="btn btn-primary btn-block">Perbarui</button>
+                        <button type="submit" class="btn btn-primary btn-block">Perbarui</button>
+                    </form>
                 </div>
             </div>
             @endcan
