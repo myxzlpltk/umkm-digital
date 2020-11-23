@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Seller;
 use Illuminate\Http\Request;
@@ -54,5 +55,25 @@ class ProductController extends Controller{
             'max' => $request->input('max', ''),
             'isStore' => boolval($request->store),
         ]);
+    }
+
+    public function addToCart(Request $request, Product $product){
+        if (auth()->guest()){
+            return view('login-request');
+        }
+        elseif ($request->user()->buyer == null){
+            $request->session('error', 'Kamu harus mengisi info pembeli terlebih dahulu.');
+            return redirect()->route('profile');
+        }
+
+        $cart = Cart::firstOrNew([
+            'buyer_id' => $request->user()->buyer->id,
+            'product_id' => $product->id
+        ]);
+
+        $cart->qty++;
+        $cart->save();
+
+        return redirect()->back();
     }
 }

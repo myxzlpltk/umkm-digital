@@ -22,6 +22,7 @@ Route::get('register/google/callback', 'RegisterController@handleProviderCallbac
 
 Route::middleware('can:isBuyerOrGuest')->group(function (){
     Route::get('search', 'ProductController@search')->name('search');
+    Route::get('cart/add/{product}', 'ProductController@addToCart')->name('products.cart');
 });
 
 Route::middleware('auth')->group(function (){

@@ -9,6 +9,15 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'buyer_id',
+    ];
+
+    protected $attributes = [
+        'qty' => 0,
+    ];
+
     public function buyer(){
         return $this->belongsTo('App\Models\Buyer');
     }
