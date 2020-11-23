@@ -8,7 +8,12 @@
                 <h5 class="card-title mb-3 text-truncate">{{ $product->name }}</h5>
                 <p class="card-subtitle mb-1 description"><small class="text-muted">{{ $product->description }}{{ $product->description }}</small></p>
                 <p class="card-text font-weight-bold mb-0">{{ UserHelp::idr($product->priceAfterDiscount) }}</p>
-                <a href="#" class="btn btn-primary btn-sm float-right"><i class="fa fa-cart-plus"></i></a>
+
+                @if($product->stock > 0)
+                    <a href="#" class="btn btn-primary btn-sm float-right"><i class="fa fa-cart-plus"></i></a>
+                @else
+                    <span class="text-red float-right"><small>Stok Habis</small></span>
+                @endif
 
                 @if($product->discount > 0)
                     <span class="badge badge-default bg-gradient-orange">{{ $product->discount }}% Off</span>
