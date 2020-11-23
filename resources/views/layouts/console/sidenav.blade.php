@@ -97,11 +97,17 @@
                     </ul>
                 @elsecan('isSeller')
                     <ul class="navbar-nav">
-
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="ni ni-money-coins text-default"></i>
                                 <span class="nav-link-text">Transaksi</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::segment(2) == 'open-hours' ? 'active' : '' }}" href="{{ route('manage.open-hours.index') }}">
+                                <i class="fa fa-clock text-default"></i>
+                                <span class="nav-link-text">Jam Buka</span>
                             </a>
                         </li>
                     </ul>

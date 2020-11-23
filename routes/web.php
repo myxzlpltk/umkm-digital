@@ -54,12 +54,13 @@ Route::middleware('auth')->group(function (){
         Route::resource('sellers', SellerController::class, ['as' => 'manage']);
 
         Route::resource('products', ProductController::class, ['as' => 'manage']);
-        Route::patch('products/{product}/update-stock', 'ProductController@updateStock')->name('manage.products.update-stock');
-
-        Route::resource('categories', CategoryController::class, ['as' => 'manage']);
     });
 
-    Route::middleware('can:isSeller')->group(function (){
+    Route::middleware('can:isSellerHasStore')->prefix('manage')->namespace('Manage')->group(function (){
+        Route::resource('categories', CategoryController::class, ['as' => 'manage']);
 
+        Route::patch('products/{product}/update-stock', 'ProductController@updateStock')->name('manage.products.update-stock');
+        Route::get('open-hours', 'DayController@index')->name('manage.open-hours.index');
+        Route::patch('open-hours', 'DayController@update')->name('manage.open-hours.update');
     });
 });
