@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use FakerRestaurant\Provider\id_ID\Restaurant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -21,8 +22,10 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $this->faker->addProvider(new Restaurant($this->faker));
+
         return [
-            'name' => $this->faker->sentence(2),
+            'name' => $this->faker->foodName(),
             'description' => $this->faker->sentence(4),
             'price' => $this->faker->numberBetween(50, 300)*100,
             'discount' => $this->faker->optional(0.25,0)->randomDigitNotNull,
