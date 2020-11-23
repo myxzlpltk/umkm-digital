@@ -33,6 +33,7 @@
                 <div class="col-12 p-2">
                     <h1 class="text-center text-white">Pencarian @if($isStore) Toko @else Produk @endif</h1>
                     <form action="{{ route('search') }}" action="get" class="mt-5">
+                        <input type="hidden" name="store" value="{{ $isStore }}">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-12 col-md pt-3">
