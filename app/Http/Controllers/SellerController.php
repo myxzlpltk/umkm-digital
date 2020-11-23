@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -57,9 +59,32 @@ class SellerController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Seller $seller){
+        $now = Carbon::now();
+        $today = $seller->days->where('index', $now->dayOfWeek)->first();
+
+        $i = 1;
+        if(Carbon::parse($today->pivot->start)->gte($now)){
+            $tomorrow = $today;
+        }
+        else {
+            do {
+                $tomorrow = $seller->days->where('index', ($now->dayOfWeek + $i) % 7)->first();
+                $i++;
+            } while ($tomorrow == null);
+        }
+
+        $isOpen = $today
+            && Carbon::parse($today->pivot->start)->lte($now)
+            && Carbon::parse($today->pivot->end)->gte($now);
+
+
+        return view('sellers.show', [
+            'seller' => $seller,
+            'isOpen' => $isOpen,
+            'today' => $today,
+            'tomorrow' => $tomorrow,
+        ]);
     }
 
     /**

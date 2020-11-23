@@ -28,10 +28,12 @@
                 @foreach($carts as $list)
                 @php $seller = $list->first()->product->seller @endphp
                 <div class="p-3">
-                    <div class="d-flex w-100 align-items-center mb-3">
-                        <img src="{{ asset('storage/logos/'.$seller->logo) }}" alt="Image placeholder" class="avatar avatar-sm mr-2" />
-                        <h5 class="mb-1">{{ $seller->store_name }}</h5>
-                    </div>
+                    <a href="{{ route('sellers.show', $seller) }}">
+                        <div class="d-flex w-100 align-items-center mb-3">
+                            <img src="{{ asset('storage/logos/'.$seller->logo) }}" alt="Image placeholder" class="avatar avatar-sm mr-2" />
+                            <h5 class="mb-1">{{ $seller->store_name }}</h5>
+                        </div>
+                    </a>
                     <div class="table-responsive">
                         <table class="table table-sm align-items-center table-flush">
                             <thead class="thead-light">

@@ -26,6 +26,7 @@ Route::middleware('can:isBuyerOrGuest')->group(function (){
     Route::get('cart/{product}', 'CartController@store')->name('carts.add');
     Route::delete('cart/{cart}', 'CartController@destroy')->name('carts.destroy');
     Route::patch('cart/{cart}', 'CartController@update')->name('carts.update');
+    Route::get('sellers/{seller}', 'SellerController@show')->name('sellers.show');
 });
 
 Route::middleware('auth')->group(function (){
