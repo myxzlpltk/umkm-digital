@@ -4,6 +4,7 @@
 @section('body.className', 'bg-white')
 
 @push('stylesheets')
+    <link rel="stylesheet" href="{{ asset('vendor/animate.css/animate.min.css') }}">
 @endpush
 
 @section('header')
@@ -20,6 +21,7 @@
         <div class="container py-5">
             <h1 class="text-center text-white">Keranjang Saya</h1>
 
+            @if($carts->count())
             <div class="card mt-4">
                 @foreach($carts as $list)
                 @php $seller = $list->first()->product->seller @endphp
@@ -85,6 +87,13 @@
                 @if(!$loop->last) <hr class="mx-3 my-0"/> @endif
                 @endforeach
             </div>
+            @else
+            <div class="text-center py-5">
+                <i class="fa fa-shopping-cart fa-4x animated rubberBand text-white mb-3"></i>
+                <h3 class="text-white mb-4">Keranjang kamu masih kosong...</h3>
+                <a href="{{ route('search') }}" class="btn btn-white">Saya ingin belanja barang</a>
+            </div>
+            @endif
         </div>
     </div>
 @endsection
