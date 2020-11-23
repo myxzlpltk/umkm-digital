@@ -22,15 +22,13 @@
             <div class="card">
                 <img src="{{ asset('storage/products/'.$product->image) }}" alt="" class="card-img-top">
 
-                <div class="card-img-overlay">
-                    @if($product->discount > 0)
-                    <span class="badge badge-default badge-lg bg-gradient-orange">{{ $product->discount }}% Off</span>
-                    @endif
-                </div>
                 <div class="card-body">
                     <h5 class="h3 card-title mb-0">{{ $product->name }}</h5>
                     <small class="text-muted">{{ $product->description }}</small>
                     <p class="card-text font-weight-bold mt-4">{{ UserHelp::idr($product->priceAfterDiscount) }}</p>
+                    @if($product->discount > 0)
+                    <span class="badge badge-default badge-lg bg-gradient-orange">Diskon {{ $product->discount }}% Off</span>
+                    @endif
                 </div>
             </div>
 
