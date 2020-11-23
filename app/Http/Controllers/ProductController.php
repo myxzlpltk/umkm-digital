@@ -34,7 +34,7 @@ class ProductController extends Controller{
         if($request->store) {
             $sellers = Seller::query()
                 ->where('store_name', 'like', "%{$request->q}%")
-                ->get();
+                ->paginate(24);
         }
         else{
             $products = Product::query()
@@ -43,7 +43,7 @@ class ProductController extends Controller{
                     if ($request->min) $query->where('price', '>=', $request->min);
                     if ($request->max) $query->where('price', '<=', $request->max);
                 })
-                ->get();
+                ->paginate(24);
         }
 
         return view('products.search', [

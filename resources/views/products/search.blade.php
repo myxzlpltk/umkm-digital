@@ -94,16 +94,28 @@
                 </div>
 
                 @foreach($products as $product)
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <x-product-card :product="$product" />
-                    </div>
+                <div class="col-12 col-sm-6 col-md-4 p-2">
+                    <x-product-card :product="$product" />
+                </div>
                 @endforeach
 
+                @if(!$isStore)
+                <div class="col-12">
+                    {{ $products->links('vendor.pagination.bootstrap-4') }}
+                </div>
+                @endif
+
                 @foreach($sellers as $seller)
-                    <div class="col-3 col-sm-2 p-2">
-                        <x-seller-card :seller="$seller" />
-                    </div>
+                <div class="col-3 col-sm-2 p-2">
+                    <x-seller-card :seller="$seller" />
+                </div>
                 @endforeach
+
+                @if($isStore)
+                <div class="col-12">
+                    {{ $sellers->links('vendor.pagination.bootstrap-4') }}
+                </div>
+                @endif
 
                 @if($products->isEmpty() && $sellers->isEmpty())
                 <div class="col-12 py-4">
