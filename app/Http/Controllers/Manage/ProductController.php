@@ -133,7 +133,7 @@ class ProductController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product){
-        Gate::authorize('create', Product::class);
+        Gate::authorize('update', $product);
 
         $request->validate([
             'image' => 'nullable|image|dimensions:min_width=200,min_height=200',
