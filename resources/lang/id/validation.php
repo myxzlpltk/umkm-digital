@@ -165,6 +165,7 @@ return [
         'password_confirmation' => 'Konfirmasi kata sandi',
         'phone_number' => 'Nomor HP',
         'price' => 'Harga',
+        'q' => 'Kueri',
         'stock' => 'Stok',
         'store_name' => 'Nama toko',
     ],

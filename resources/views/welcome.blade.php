@@ -18,15 +18,17 @@
                             <div class="card mt-5">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ UserHelp::greeting() }} Kamu mau pesan apa?</h3>
-                                    <div class="form-group">
-                                        <div class="input-group input-group-merge">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-utensils"></i></span>
+                                    <form action="{{ route('search') }}" action="get">
+                                        <div class="form-group">
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-utensils"></i></span>
+                                                </div>
+                                                <input class="form-control" placeholder="Pesan apa aja..." type="text" name="q" id="input-q" autofocus>
                                             </div>
-                                            <input class="form-control" placeholder="Pesan apa aja..." type="text" name="label" id="label" autofocus>
                                         </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block">Cari</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Cari</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -49,20 +51,15 @@
     <div class="container py-5 bg-white">
         <div class="row">
             <div class="col-12">
-                <h3 class="mb-3 text-dark">Lihat-lihat makanan enak, pilih yang kamu suka.</h3>
+                <h3 class="mb-3 text-dark">Toko ini lagi populer nih. Coba cek dulu, siapa tahu suka.</h3>
             </div>
             @foreach($sellers as $seller)
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="card text-dark">
-                    <img src="{{ asset('storage/logos/'.$seller->logo) }}" class="card-img-top" alt="{{ $seller->store_name }}">
-                    <div class="card-body">
-                        <h5 class="h4 card-title mb-0">{{ $seller->store_name }}</h5>
-                    </div>
-                </div>
+            <div class="col-3 col-sm-2">
+                <x-seller-card :seller="$seller" />
             </div>
             @endforeach
             <div class="col-12 text-center">
-                <a href="#" class="btn btn-primary">Tampilkan lebih banyak penjual</a>
+                <a href="{{ route('search', ['store' => true]) }}" class="btn btn-primary">Tampilkan lebih banyak penjual</a>
             </div>
         </div>
     </div>

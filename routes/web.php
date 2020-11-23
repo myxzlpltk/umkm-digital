@@ -20,6 +20,10 @@ Route::get('login/google/callback', 'LoginController@handleProviderCallback')->n
 Route::get('register/google', 'RegisterController@redirectToProvider')->name('register.google');
 Route::get('register/google/callback', 'RegisterController@handleProviderCallback')->name('register.google.callback');
 
+Route::middleware('can:isBuyerOrGuest')->group(function (){
+    Route::get('search', 'ProductController@search')->name('search');
+});
+
 Route::middleware('auth')->group(function (){
 
     Route::get('login/redirect', 'LoginController@redirectToHome')->name('login.redirect');
