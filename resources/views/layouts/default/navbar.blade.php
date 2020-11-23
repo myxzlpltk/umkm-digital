@@ -33,8 +33,11 @@
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                 @if(Auth::guest() || Auth::user()->can('isBuyer'))
                 <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="{{ url('cart') }}" data-toggle="tooltip" data-original-title="Keranjang">
+                    <a class="nav-link nav-link-icon" href="{{ route('carts.index') }}" data-toggle="tooltip" data-original-title="Keranjang">
                         <i class="fas fa-shopping-cart"></i>
+                        @if(!Auth::guest() && Auth::user()->buyer)
+                        <small class="badge p-0">{{ Auth::user()->buyer->carts()->sum('qty') }}</small>
+                        @endif
                         <span class="nav-link-inner--text d-lg-none">Keranjang</span>
                     </a>
                 </li>

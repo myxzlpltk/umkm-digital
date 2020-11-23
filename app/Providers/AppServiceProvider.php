@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;

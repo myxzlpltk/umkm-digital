@@ -10,7 +10,7 @@
                 <p class="card-text font-weight-bold mb-0">{{ UserHelp::idr($product->priceAfterDiscount) }}</p>
 
                 @if($product->stock > 0)
-                    <a href="{{ route('products.cart', $product) }}" class="btn btn-primary btn-sm float-right"><i class="fa fa-cart-plus"></i></a>
+                    <a href="{{ route('carts.add', $product) }}" class="btn btn-primary btn-sm float-right"><i class="fa fa-cart-plus"></i></a>
                 @else
                     <span class="text-red float-right"><small>Stok Habis</small></span>
                 @endif

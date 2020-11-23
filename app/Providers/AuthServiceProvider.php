@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Buyer;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
 use App\Policies\BuyerPolicy;
+use App\Policies\CartPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\SellerPolicy;
@@ -23,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Buyer::class => BuyerPolicy::class,
+        Cart::class => CartPolicy::class,
         Category::class => CategoryPolicy::class,
         Product::class => ProductPolicy::class,
         Seller::class => SellerPolicy::class,
