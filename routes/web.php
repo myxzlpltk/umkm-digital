@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function (){
 
     });
 
-    Route::middleware('can:isAdminOrSeller')->prefix('manage')->namespace('Manage')->group(function (){
+    Route::middleware('can:isAdminOrSellerHasStore')->prefix('manage')->namespace('Manage')->group(function (){
         Route::get('/', 'DashboardController@index')->name('manage');
 
         Route::get('users/{user}', 'UserController@show')->name('manage.users.show');

@@ -23,7 +23,7 @@
                 <!-- Nav items -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('manage') ? 'active' : '' }}" href="{{ route('manage') }}">
+                        <a class="nav-link @if(Request::is('manage')) active @endif" href="{{ route('manage') }}">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
@@ -37,7 +37,7 @@
                 <ul class="navbar-nav">
                     @can('view-any', \App\Models\Buyer::class)
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) == 'buyers' ? 'active' : '' }}" href="{{ route('manage.buyers.index') }}">
+                        <a class="nav-link @if(Request::segment(2) == 'buyers' || Request::segment(2) == 'users' && !empty($user->isBuyer)) active @endif" href="{{ route('manage.buyers.index') }}">
                             <i class="ni ni-user-run text-orange"></i>
                             <span class="nav-link-text">Pembeli</span>
                         </a>
@@ -46,7 +46,7 @@
 
                     @can('view-any', \App\Models\Seller::class)
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) == 'sellers' ? 'active' : '' }}" href="{{ route('manage.sellers.index') }}">
+                        <a class="nav-link @if(Request::segment(2) == 'sellers' || Request::segment(2) == 'users' && !empty($user->isSeller)) active @endif" href="{{ route('manage.sellers.index') }}">
                             <i class="ni ni-shop text-primary"></i>
                             <span class="nav-link-text">Penjual</span>
                         </a>
@@ -55,7 +55,7 @@
 
                     @can('view-any', \App\Models\Product::class)
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) == 'products' ? 'active' : '' }}" href="{{ route('manage.products.index')  }}">
+                        <a class="nav-link @if(Request::segment(2) == 'products') active @endif" href="{{ route('manage.products.index')  }}">
                             <i class="ni ni-box-2 text-orange"></i>
                             <span class="nav-link-text">Produk</span>
                         </a>
@@ -64,7 +64,7 @@
 
                     @can('view-any', \App\Models\Category::class)
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::segment(2) == 'categories' ? 'active' : '' }}" href="{{ route('manage.categories.index')  }}">
+                        <a class="nav-link @if(Request::segment(2) == 'categories') active @endif" href="{{ route('manage.categories.index')  }}">
                             <i class="ni ni-tag text-primary"></i>
                             <span class="nav-link-text">Kategori</span>
                         </a>
@@ -73,18 +73,17 @@
 
                     @can('view-any', \App\Models\Order::class)
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link @if(Request::segment(2) == 'orders') active @endif" href="#">
                             <i class="ni ni-money-coins text-default"></i>
                             <span class="nav-link-text">Transaksi</span>
                         </a>
                     </li>
                     @endcan
                 </ul>
-                @can('isAdmin')
-                @elsecan('isSeller')
+                @can('isSeller')
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::segment(2) == 'open-hours' ? 'active' : '' }}" href="{{ route('manage.open-hours.index') }}">
+                            <a class="nav-link @if(Request::segment(2) == 'open-hours') active @endif" href="{{ route('manage.open-hours.index') }}">
                                 <i class="fa fa-clock text-default"></i>
                                 <span class="nav-link-text">Jam Buka</span>
                             </a>

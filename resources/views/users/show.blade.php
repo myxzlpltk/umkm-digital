@@ -33,7 +33,7 @@
                             @else
                                 <hr/>
                                 <p class="card-title font-weight-bold">Akun Google</p>
-                                <img src="{{ route('profile.google.avatar') }}" alt="" class="avatar rounded-circle" data-toggle="tooltip" data-original-title="{{ $user->google_email }}">
+                                <img src="{{ $user->google_avatar }}" alt="" class="avatar rounded-circle" data-toggle="tooltip" data-original-title="{{ $user->google_email }}">
                                 <p>{{ $user->google_name }}</p>
                             @endempty
                         </div>
@@ -63,13 +63,6 @@
                             <div class="text-center">
                                 <h5 class="h3">{{ $user->seller->store_name }}</h5>
                             </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="card bg-gradient-orange">
-                        <div class="card-body text-white">
-                            <h3 class="card-title"><i class="fas fa-exclamation-triangle fa-fw"></i> Waduh....</h3>
-                            <p class="card-subtitle">Kamu belum memiliki toko. Silahkan membuat mengisi formulir informasi penjual!</p>
                         </div>
                     </div>
                 @endif

@@ -63,8 +63,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isSeller && $user->seller !== null;
         });
 
-        Gate::define('isAdminOrSeller', function (User $user){
-            return $user->isAdmin || $user->isSeller;
+        Gate::define('isAdminOrSellerHasStore', function (User $user){
+            return $user->isAdmin || ($user->isSeller && $user->seller !== null);
         });
 
         Gate::define('isBuyerOrSeller', function (User $user){
