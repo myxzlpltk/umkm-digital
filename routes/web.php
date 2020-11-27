@@ -51,8 +51,9 @@ Route::middleware('auth')->group(function (){
     Route::middleware('can:isAdminOrSeller')->prefix('manage')->namespace('Manage')->group(function (){
         Route::get('/', 'DashboardController@index')->name('manage');
 
-        Route::resource('buyers', BuyerController::class, ['as' => 'manage']);
-        Route::resource('sellers', SellerController::class, ['as' => 'manage']);
+        Route::get('users/{user}', 'UserController@show')->name('manage.users.show');
+        Route::resource('buyers', BuyerController::class, ['as' => 'manage'])->only(['index']);
+        Route::resource('sellers', SellerController::class, ['as' => 'manage'])->only(['index']);
 
         Route::resource('products', ProductController::class, ['as' => 'manage']);
     });

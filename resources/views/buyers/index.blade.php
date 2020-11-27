@@ -46,7 +46,7 @@
                         </td>
                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
                         <td>
-                            <a href="#!" class="table-action" data-toggle="tooltip" data-original-title="Lihat">
+                            <a href="{{ route('manage.users.show', $user) }}" class="table-action" data-toggle="tooltip" data-original-title="Lihat">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </td>

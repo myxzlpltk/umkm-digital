@@ -13,6 +13,13 @@ Breadcrumbs::for('manage', function ($trail){
     $trail->push('Dashboard', route('manage'));
 });
 
+// Buyer > Data Pengguna
+Breadcrumbs::for('manage.users.show', function ($trail, $user){
+    if($user->isBuyer) $trail->parent('manage.buyers.index');
+    elseif($user->isSeller) $trail->parent('manage.sellers.index');
+    $trail->push('Data '.__($user->role), route('manage.users.show', $user));
+});
+
 // Buyer
 Breadcrumbs::for('manage.buyers.index', function ($trail){
     $trail->parent('home');
