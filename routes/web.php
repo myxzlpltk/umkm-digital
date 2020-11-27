@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function (){
         Route::get('google/avatar', 'ProfileController@showAvatar')->name('profile.google.avatar');
         Route::get('google/callback', 'ProfileController@handleProviderCallback')->name('profile.google.callback');
         Route::get('google/disconnect', 'ProfileController@disconnectProvider')->name('profile.google.disconnect');
-        Route::post('seller', 'ProfileController@updateSeller')->name('profile.seller');
-        Route::post('buyer', 'ProfileController@updateBuyer')->name('profile.buyer');
+        Route::post('seller', 'ProfileController@updateSeller')->name('profile.seller')->middleware('can:isSeller');
+        Route::post('buyer', 'ProfileController@updateBuyer')->name('profile.buyer')->middleware('can:isBuyer');
     });
 
     Route::middleware('can:isAdmin')->group(function (){

@@ -128,17 +128,18 @@ class ProfileController extends Controller{
             'account_name' => 'required|string',
         ]);
 
-        $seller = Seller::updateOrCreate(
-            ['user_id' => $request->user()->id],
-            [
-                'store_name' => $request->store_name,
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'bank_id' => $request->bank_id,
-                'account_number' => $request->account_number,
-                'account_name' => $request->account_name,
-            ],
-        );
+        $seller = Seller::where('user_id', $request->user()->id)->first();
+        if($seller == null){
+            $seller = new Seller;
+            $seller->user_id = $request->user()->id;
+        }
+
+        $seller->store_name = $request->store_name;
+        $seller->address = $request->address;
+        $seller->phone_number = $request->phone_number;
+        $seller->bank_id = $request->bank_id;
+        $seller->account_number = $request->account_number;
+        $seller->account_name = $request->account_name;
 
         if($request->file('logo')){
             $image = Image::make($request->file('logo'));
@@ -148,7 +149,6 @@ class ProfileController extends Controller{
             Storage::disk('public')->put("logos/$logo", $image->fit($dim)->encode('jpg', 80));
 
             $seller->logo = $logo;
-            $seller->save();
         }
 
         if($request->file('banner')){
@@ -159,8 +159,9 @@ class ProfileController extends Controller{
             Storage::disk('public')->put("banners/$banner", $image->fit($dim, $dim/3)->encode('jpg', 80));
 
             $seller->banner = $banner;
-            $seller->save();
         }
+
+        $seller->save();
 
         return redirect()->route('profile')->with([
             'success' => 'Data penjual telah diperbarui.'
@@ -176,16 +177,18 @@ class ProfileController extends Controller{
             'account_name' => 'required|string',
         ]);
 
-        Buyer::updateOrCreate(
-            ['user_id' => $request->user()->id],
-            [
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'bank_id' => $request->bank_id,
-                'account_number' => $request->account_number,
-                'account_name' => $request->account_name,
-            ],
-        );
+        $buyer = Buyer::where('user_id', $request->user()->id)->first();
+        if($buyer == null){
+            $buyer = new Buyer;
+            $buyer->user_id = $request->user()->id;
+        }
+
+        $buyer->address = $request->address;
+        $buyer->phone_number = $request->phone_number;
+        $buyer->bank_id = $request->bank_id;
+        $buyer->account_number = $request->account_number;
+        $buyer->account_name = $request->account_name;
+        $buyer->save();
 
         return redirect()->route('profile')->with([
             'success' => 'Data pembeli telah diperbarui.'
