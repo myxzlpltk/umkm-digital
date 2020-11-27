@@ -5,12 +5,14 @@ namespace App\Providers;
 use App\Models\Buyer;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
 use App\Policies\BuyerPolicy;
 use App\Policies\CartPolicy;
 use App\Policies\CategoryPolicy;
+use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\SellerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Buyer::class => BuyerPolicy::class,
         Cart::class => CartPolicy::class,
         Category::class => CategoryPolicy::class,
+        Order::class => OrderPolicy::class,
         Product::class => ProductPolicy::class,
         Seller::class => SellerPolicy::class,
     ];
@@ -46,6 +49,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('isBuyer', function (User $user){
             return $user->isBuyer;
+        });
+
+        Gate::define('isBuyerRegistered', function (User $user){
+            return $user->isBuyer && $user->buyer !== null;
         });
 
         Gate::define('isSeller', function (User $user){

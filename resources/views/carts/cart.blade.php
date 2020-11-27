@@ -81,7 +81,7 @@
                                     <th colspan="3" class="text-right">Total</th>
                                     <td>{{ UserHelp::idr($list->sum('subtotal')) }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-sm">Bayar</a>
+                                        <a href="{{ route('orders.create', $seller) }}" class="btn btn-primary btn-sm">Bayar</a>
                                     </td>
                                 </tr>
                             </tfoot>

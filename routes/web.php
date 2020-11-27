@@ -64,4 +64,14 @@ Route::middleware('auth')->group(function (){
         Route::get('open-hours', 'DayController@index')->name('manage.open-hours.index');
         Route::patch('open-hours', 'DayController@update')->name('manage.open-hours.update');
     });
+
+    Route::middleware('can:isBuyer')->group(function (){
+        Route::get('orders/{type?}', 'OrderController@index')->name('orders.index');
+        Route::get('orders/cart/{seller}', 'OrderController@create')->name('orders.create');
+        Route::get('orders/detail/{order}', 'OrderController@show')->name('orders.show');
+
+        Route::middleware('can:isBuyerRegistered')->group(function (){
+
+        });
+    });
 });

@@ -16,4 +16,16 @@ class OrderDetail extends Model
     public function product(){
         return $this->belongsTo('App\Models\Product');
     }
+
+    public function getDiscountPriceAttribute(){
+        return round(($this->discount/100)*$this->price);
+    }
+
+    public function getPriceAfterDiscountAttribute(){
+        return round($this->price-$this->discount_price);
+    }
+
+    public function getSubtotalAttribute(){
+        return $this->price_after_discount * $this->qty;
+    }
 }

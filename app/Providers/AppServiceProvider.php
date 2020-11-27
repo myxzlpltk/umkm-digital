@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\User;
+use App\Observers\OrderObserver;
 use App\Observers\ProductObserver;
 use App\Observers\SellerObserver;
 use App\Observers\UserObserver;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Order::observe(OrderObserver::class);
         Product::observe(ProductObserver::class);
         Seller::observe(SellerObserver::class);
         User::observe(UserObserver::class);

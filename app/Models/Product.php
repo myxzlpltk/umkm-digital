@@ -41,6 +41,6 @@ class Product extends Model
     }
 
     public function getPriceAfterDiscountAttribute(){
-        return round($this->price-$this->discountPrice);
+        return round($this->price-$this->discount_price);
     }
 }

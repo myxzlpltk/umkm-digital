@@ -52,6 +52,16 @@
                 </li>
                 @endcan
 
+                @can('isBuyerRegistered')
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-icon" href="{{ route('orders.index') }}" data-toggle="tooltip" data-original-title="Pesanan Saya">
+                            <i class="fa fa-shipping-fast"></i>
+                            <span class="nav-link-inner--text d-lg-none">Pesanan Saya</span>
+                            <small class="badge p-0">{{ Auth::user()->buyer->orders()->whereIn('status_code', [1,2,3,4])->count() }}</small>
+                        </a>
+                    </li>
+                @endcan
+
                 @include('layouts.login-button')
             </ul>
         </div>
