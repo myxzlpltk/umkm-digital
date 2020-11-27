@@ -18,7 +18,7 @@ class OrderPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAdmin || $user->isSeller;
     }
 
     /**

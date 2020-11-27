@@ -70,59 +70,23 @@
                         </a>
                     </li>
                     @endcan
+
+                    @can('view-any', \App\Models\Order::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="ni ni-money-coins text-default"></i>
+                            <span class="nav-link-text">Transaksi</span>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
                 @can('isAdmin')
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ni ni-money-coins text-default"></i>
-                                <span class="nav-link-text">Transaksi</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- Divider -->
-                    <hr class="my-3">
-                    <!-- Heading -->
-                    <h6 class="navbar-heading p-0 text-muted">
-                        <span class="docs-normal">Alat</span>
-                    </h6>
-                    <!-- Navigation -->
-                    <ul class="navbar-nav mb-md-3">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" target="_blank">
-                                <i class="ni ni-chart-pie-35"></i>
-                                <span class="nav-link-text">Statistik Penjualan</span>
-                            </a>
-                        </li>
-                    </ul>
                 @elsecan('isSeller')
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="ni ni-money-coins text-default"></i>
-                                <span class="nav-link-text">Transaksi</span>
-                            </a>
-                        </li>
-
                         <li class="nav-item">
                             <a class="nav-link {{ Request::segment(2) == 'open-hours' ? 'active' : '' }}" href="{{ route('manage.open-hours.index') }}">
                                 <i class="fa fa-clock text-default"></i>
                                 <span class="nav-link-text">Jam Buka</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- Divider -->
-                    <hr class="my-3">
-                    <!-- Heading -->
-                    <h6 class="navbar-heading p-0 text-muted">
-                        <span class="docs-normal">Alat</span>
-                    </h6>
-                    <!-- Navigation -->
-                    <ul class="navbar-nav mb-md-3">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" target="_blank">
-                                <i class="ni ni-chart-pie-35"></i>
-                                <span class="nav-link-text">Statistik Penjualan</span>
                             </a>
                         </li>
                     </ul>
