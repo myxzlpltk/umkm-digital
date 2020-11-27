@@ -55,7 +55,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        //
+        return $user->isBuyer && optional($user->buyer)->id == $order->buyer_id;
     }
 
     /**

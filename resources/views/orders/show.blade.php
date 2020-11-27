@@ -40,7 +40,7 @@
                                 <dd>{{ $order->created_at->format('d M Y H:i') }}</dd>
                                 <dt>Bukti Pembayaran</dt>
                                 @if($order->payment_proof)
-                                <dd><a href="{{ asset('storage/payments/'.$order->payment_proof) }}">Klik Disini</a></dd>
+                                <dd><a href="{{ asset('storage/payments/'.$order->payment_proof) }}" target="_blank">Klik Disini</a></dd>
                                 @else
                                 <dd><em>Belum ada bukti pembayaran</em></dd>
                                 @endif
@@ -55,18 +55,20 @@
                             @endif
                             <x-bank-card :bank="$order->seller->bank" :number="$order->seller->account_number" :name="$order->seller->account_name" />
 
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('orders.payment', $order) }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-payment-proof">Bukti Transfer</label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input @error('payment-proof') is-invalid @enderror" id="input-payment-proof" name="payment-proof" accept="image/*">
+                                        <input type="file" class="custom-file-input @error('payment_proof-proof') is-invalid @enderror" id="input-payment-proof" name="payment_proof" accept="image/*">
                                         <label class="custom-file-label" for="input-payment-proof">Pilih file</label>
                                     </div>
-                                    @error('payment-proof')
+                                    @error('payment_proof')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-save fa-fw"></i> Simpan</button>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save fa-fw"></i> Simpan</button>
                             </form>
                         </div>
                         @endif
@@ -91,16 +93,16 @@
 
                     <h3>Pelacakan</h3>
 
+                    @foreach($order->tracks->sortBy('created_at') as $track)
                     <div class="row">
-                        @foreach($order->tracks->sortBy('created_at') as $track)
                         <div class="col-auto">
-                            <small>{{ $track->created_at->format('d F Y H:i') }}</small>
+                            <small class="mb-0">{{ $track->created_at->format('d F Y H:i') }}</small>
                         </div>
                         <div class="col">
-                            <p>{{ $track->status }}</p>
+                            <p class="mb-0">{{ $track->status }}</p>
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
             </div>
 

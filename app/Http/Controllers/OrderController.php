@@ -99,4 +99,25 @@ class OrderController extends Controller{
             'order' => $order
         ]);
     }
+
+    public function updatePayment(Request $request, Order $order){
+        Gate::authorize('update', $order);
+
+        if($order->status_code == Order::PAYMENT_PENDING || $order->status_code == Order::PAYMENT_IN_PROCESS){
+            $request->validate([
+                'payment_proof' => 'required|image'
+            ]);
+
+            $order->status_code = Order::PAYMENT_IN_PROCESS;
+            $order->payment_proof = basename($request->file('payment_proof')->store('payments'));
+            $order->save();
+
+            return redirect()->route('orders.show', $order)->with([
+                'success' => 'Bukti pembayaran berhasil di upload'
+            ]);
+        }
+        else{
+            return abort(404);
+        }
+    }
 }

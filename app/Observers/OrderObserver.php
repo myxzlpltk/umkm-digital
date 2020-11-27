@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Order;
 use App\Models\Track;
+use Illuminate\Support\Facades\Storage;
 
 class OrderObserver
 {
@@ -31,8 +32,15 @@ class OrderObserver
         if($order->wasChanged('status_code')){
             $track = new Track;
             $track->order_id = $order->id;
-            $track->status_code = $order->getOriginal('status_code');
+            $track->status_code = $order->status_code;
             $track->save();
+        }
+
+        if($order->wasChanged('payment_proof')){
+            $oldImage = $order->getOriginal('payment_proof');
+            if(!empty($oldImage) && Storage::exists("payments/$oldImage")){
+                Storage::delete("payments/$oldImage");
+            }
         }
     }
 
