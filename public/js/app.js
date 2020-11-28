@@ -39,3 +39,21 @@ if($('.btn-delete').length > 0){
         });
     });
 }
+
+if($('.btn-alert').length > 0){
+    $('.btn-alert').click(function (){
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.value) {
+                $(this).closest('form').submit();
+            }
+        });
+    });
+}

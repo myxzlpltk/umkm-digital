@@ -54,7 +54,12 @@ Route::middleware('auth')->group(function (){
         Route::get('users/{user}', 'UserController@show')->name('manage.users.show');
         Route::resource('buyers', BuyerController::class, ['as' => 'manage'])->only(['index']);
         Route::resource('sellers', SellerController::class, ['as' => 'manage'])->only(['index']);
+
         Route::resource('orders', OrderController::class, ['as' => 'manage'])->only(['index', 'show']);
+        Route::patch('orders/{order}/payment/deny', 'OrderController@denyPayment')->name('manage.order.deny-payment');
+        Route::patch('orders/{order}/payment/accept', 'OrderController@acceptPayment')->name('manage.order.accept-payment');
+        Route::patch('orders/{order}/payment/deliver', 'OrderController@deliver')->name('manage.order.deliver');
+        Route::patch('orders/{order}/payment/delivery-complete', 'OrderController@deliveryComplete')->name('manage.order.delivery-complete');
 
         Route::resource('products', ProductController::class, ['as' => 'manage']);
     });
@@ -72,5 +77,6 @@ Route::middleware('auth')->group(function (){
         Route::get('orders/cart/{seller}', 'OrderController@create')->name('orders.create');
         Route::get('orders/detail/{order}', 'OrderController@show')->name('orders.show');
         Route::patch('orders/detail/{order}/payment', 'OrderController@updatePayment')->name('orders.payment');
+        Route::patch('orders/detail/{order}/payment/delivery-complete', 'Manage\OrderController@deliveryComplete')->name('order.delivery-complete');
     });
 });

@@ -19,26 +19,58 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            <div class="card card-body">
-                <dl>
-                    <dt>Nomor Pesanan</dt>
-                    <dd>{{ $order->no_invoice }}</dd>
-                    <dt>Status</dt>
-                    <dd>{{ $order->status }}</dd>
-                    <dt>Nama Toko</dt>
-                    <dd>
-                        <a href="{{ route('sellers.show', $order->seller) }}">{{ $order->seller->store_name }}</a>
-                        <p class="mb-0">Telp: +62{{ $order->seller->phone_number }}</p>
-                    </dd>
-                    <dt>Tanggal Pembelian</dt>
-                    <dd>{{ $order->created_at->format('d M Y H:i') }}</dd>
-                    <dt>Bukti Pembayaran</dt>
-                    @if($order->payment_proof)
-                        <dd><a href="{{ asset('storage/payments/'.$order->payment_proof) }}" target="_blank">Klik Disini</a></dd>
-                    @else
-                        <dd><em>Belum ada bukti pembayaran</em></dd>
-                    @endif
-                </dl>
+            <div class="card">
+                <div class="card-body">
+                    <dl>
+                        <dt>Nomor Pesanan</dt>
+                        <dd>{{ $order->no_invoice }}</dd>
+                        <dt>Status</dt>
+                        <dd>{{ $order->status }}</dd>
+                        <dt>Nama Toko</dt>
+                        <dd>
+                            <a href="{{ route('sellers.show', $order->seller) }}">{{ $order->seller->store_name }}</a>
+                            <p class="mb-0">Telp: +62{{ $order->seller->phone_number }}</p>
+                        </dd>
+                        <dt>Tanggal Pembelian</dt>
+                        <dd>{{ $order->created_at->format('d M Y H:i') }}</dd>
+                        <dt>Bukti Pembayaran</dt>
+                        @if($order->payment_proof)
+                            <dd><a href="{{ asset('storage/payments/'.$order->payment_proof) }}" target="_blank">Klik Disini</a></dd>
+                        @else
+                            <dd><em>Belum ada bukti pembayaran</em></dd>
+                        @endif
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    @can('accept-payment', $order)
+                        <form class="d-inline" action="{{ route('manage.order.accept-payment', $order) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Terima Pembayaran</a>
+                        </form>
+                    @endcan
+                    @can('deny-payment', $order)
+                        <form class="d-inline" action="{{ route('manage.order.deny-payment', $order) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Tolak Pembayaran</a>
+                        </form>
+                    @endcan
+                    @can('deliver', $order)
+                        <form class="d-inline" action="{{ route('manage.order.deliver', $order) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <a href="javascript:void(0)" class="btn btn-primary btn-sm btn-alert"><i class="fa fa-shipping-fast fa-fw"></i> Kirim Pesanan</a>
+                        </form>
+                    @endcan
+                    @can('delivery-complete', $order)
+                        <form class="d-inline" action="{{ route('manage.order.delivery-complete', $order) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Pesanan Telah Dikirim</a>
+                        </form>
+                    @endcan
+                </div>
             </div>
         </div>
         <div class="col-md-4">

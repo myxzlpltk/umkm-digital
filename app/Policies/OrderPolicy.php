@@ -93,4 +93,48 @@ class OrderPolicy
     {
         //
     }
+
+    /**
+     * Accept Payment by Seller
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function acceptPayment(User $user, Order $order){
+        return $user->isSeller && optional($user->seller)->id == $order->seller_id && $order->status_code == Order::PAYMENT_IN_PROCESS;
+    }
+
+    /**
+     * Deny Payment by Seller
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function denyPayment(User $user, Order $order){
+        return $user->isSeller && optional($user->seller)->id == $order->seller_id && $order->status_code == Order::PAYMENT_IN_PROCESS;
+    }
+
+    /**
+     * Set Status to In Delivery
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function deliver(User $user, Order $order){
+        return $user->isSeller && optional($user->seller)->id == $order->seller_id && $order->status_code == Order::ORDER_BEING_PROCESSED;
+    }
+
+    /**
+     * Delivery Complete
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function deliveryComplete(User $user, Order $order){
+        return (
+                ($user->isSeller && optional($user->seller)->id == $order->seller_id)
+                || ($user->isBuyer && optional($user->buyer)->id == $order->buyer_id)
+            )
+            && $order->status_code == Order::IN_DELIVERY;
+    }
 }

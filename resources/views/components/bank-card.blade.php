@@ -5,7 +5,7 @@
                 <img src="{{ asset('storage/banks/'.$bank->icon) }}" alt="{{ $bank->name }}" class="img-fluid" style="height: 40px;" data-toggle="tooltip" data-original-title="{{ $bank->name }}" />
             </div>
             <div class="col-auto">
-                <span class="badge badge-lg badge-success">Active</span>
+                <span class="badge badge-lg badge-white text-dark">REKENING</span>
             </div>
         </div>
         <div class="my-2">
