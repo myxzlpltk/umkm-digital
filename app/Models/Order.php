@@ -15,8 +15,9 @@ class Order extends Model
     const IN_DELIVERY = 4;
     const ORDER_COMPLETED = 5;
     const CANCELED = 6;
-    const REFUND_BEING_PROCESSED = 7;
-    const REFUND_COMPLETED = 8;
+    const REQUEST_REFUND = 7;
+    const REFUND_BEING_PROCESSED = 8;
+    const REFUND_COMPLETED = 9;
 
     const status = [
         self::PAYMENT_PENDING => 'Menunggu Pembayaran',
@@ -25,8 +26,9 @@ class Order extends Model
         self::IN_DELIVERY => 'Sedang Pengantaran',
         self::ORDER_COMPLETED => 'Pesanan Selesai',
         self::CANCELED => 'Dibatalkan',
-        self::REFUND_BEING_PROCESSED => 'Uang Sedang Dikembalikan',
-        self::REFUND_COMPLETED => 'Uang Telah Dikembalikan',
+        self::REQUEST_REFUND => 'Meminta Pengembalian Dana',
+        self::REFUND_BEING_PROCESSED => 'Dana Sedang Dikembalikan',
+        self::REFUND_COMPLETED => 'Dana Telah Dikembalikan',
     ];
 
     protected $attributes = [

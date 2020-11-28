@@ -56,6 +56,33 @@
                             </form>
                         </div>
                         @endcan
+                        @can('cancel', $order)
+                        <div class="card-footer">
+                            <form class="d-inline" action="{{ route('order.cancel', $order) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Batalkan Pesanan</a>
+                            </form>
+                        </div>
+                        @endcan
+                        @can('request-refund', $order)
+                        <div class="card-footer">
+                            <form class="d-inline" action="{{ route('order.request-refund', $order) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Batalkan & Minta Kembalikan Dana</a>
+                            </form>
+                        </div>
+                        @endcan
+                        @can('refund-complete', $order)
+                        <div class="card-footer">
+                            <form class="d-inline" action="{{ route('order.refund-complete', $order) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Dana Telah Dikembalikan</a>
+                            </form>
+                        </div>
+                        @endcan
                     </div>
                 </div>
                 <div class="col-md-4">

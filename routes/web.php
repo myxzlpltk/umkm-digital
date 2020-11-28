@@ -60,6 +60,10 @@ Route::middleware('auth')->group(function (){
         Route::patch('orders/{order}/payment/accept', 'OrderController@acceptPayment')->name('manage.order.accept-payment');
         Route::patch('orders/{order}/payment/deliver', 'OrderController@deliver')->name('manage.order.deliver');
         Route::patch('orders/{order}/payment/delivery-complete', 'OrderController@deliveryComplete')->name('manage.order.delivery-complete');
+        Route::patch('orders/{order}/payment/cancel', 'OrderController@cancel')->name('manage.order.cancel');
+        Route::patch('orders/{order}/payment/request-refund', 'OrderController@requestRefund')->name('manage.order.request-refund');
+        Route::patch('orders/{order}/payment/refund', 'OrderController@refund')->name('manage.order.refund');
+        Route::patch('orders/{order}/payment/refund-complete', 'OrderController@refundComplete')->name('manage.order.refund-complete');
 
         Route::resource('products', ProductController::class, ['as' => 'manage']);
     });
@@ -78,5 +82,8 @@ Route::middleware('auth')->group(function (){
         Route::get('orders/detail/{order}', 'OrderController@show')->name('orders.show');
         Route::patch('orders/detail/{order}/payment', 'OrderController@updatePayment')->name('orders.payment');
         Route::patch('orders/detail/{order}/payment/delivery-complete', 'Manage\OrderController@deliveryComplete')->name('order.delivery-complete');
+        Route::patch('orders/detail/{order}/payment/cancel', 'Manage\OrderController@cancel')->name('order.cancel');
+        Route::patch('orders/detail/{order}/payment/request-refund', 'Manage\OrderController@requestRefund')->name('order.request-refund');
+        Route::patch('orders/detail/{order}/payment/refund-complete', 'Manage\OrderController@refundComplete')->name('order.refund-complete');
     });
 });

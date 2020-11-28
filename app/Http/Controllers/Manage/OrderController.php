@@ -110,6 +110,55 @@ class OrderController extends Controller{
         ]);
     }
 
+    public function cancel(Request $request, Order $order){
+        Gate::authorize('cancel', $order);
+
+        $order->status_code = Order::CANCELED;
+        $order->save();
+
+        return redirect()->back()->with([
+            'success' => 'Status pesanan berhasil diperbarui.'
+        ]);
+    }
+
+    public function requestRefund(Request $request, Order $order){
+        Gate::authorize('request-refund', $order);
+
+        $order->status_code = Order::REQUEST_REFUND;
+        $order->save();
+
+        if($request->user()->isSeller){
+            $order->status_code = Order::REFUND_BEING_PROCESSED;
+            $order->save();
+        }
+
+        return redirect()->back()->with([
+            'success' => 'Status pesanan berhasil diperbarui.'
+        ]);
+    }
+
+    public function refund(Request $request, Order $order){
+        Gate::authorize('refund', $order);
+
+        $order->status_code = Order::REFUND_BEING_PROCESSED;
+        $order->save();
+
+        return redirect()->back()->with([
+            'success' => 'Status pesanan berhasil diperbarui.'
+        ]);
+    }
+
+    public function refundComplete(Request $request, Order $order){
+        Gate::authorize('refund-complete', $order);
+
+        $order->status_code = Order::REFUND_COMPLETED;
+        $order->save();
+
+        return redirect()->back()->with([
+            'success' => 'Status pesanan berhasil diperbarui.'
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

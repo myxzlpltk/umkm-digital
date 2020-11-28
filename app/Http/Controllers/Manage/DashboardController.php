@@ -31,9 +31,9 @@ class DashboardController extends Controller{
                 'orders' => auth()->user()->seller->orders()->with(['details','buyer.user'])->whereIn('status_code', [
                     Order::PAYMENT_PENDING,
                     Order::PAYMENT_IN_PROCESS,
-                    Order::ORDER_COMPLETED,
+                    Order::ORDER_BEING_PROCESSED,
                     Order::IN_DELIVERY,
-                    Order::CANCELED,
+                    Order::REQUEST_REFUND,
                     Order::REFUND_BEING_PROCESSED,
                 ])->get(),
                 'seller' => auth()->user()->seller,

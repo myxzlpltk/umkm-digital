@@ -137,4 +137,56 @@ class OrderPolicy
             )
             && $order->status_code == Order::IN_DELIVERY;
     }
+
+    /**
+     * Cancel by buyer
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function cancel(User $user, Order $order){
+        return (
+                ($user->isSeller && optional($user->seller)->id == $order->seller_id)
+                || ($user->isBuyer && optional($user->buyer)->id == $order->buyer_id)
+            )
+            && ($order->status_code == Order::PAYMENT_PENDING);
+    }
+
+    /**
+     * Request refund by buyer or seller
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function requestRefund(User $user, Order $order){
+        return (
+                ($user->isSeller && optional($user->seller)->id == $order->seller_id)
+                || ($user->isBuyer && optional($user->buyer)->id == $order->buyer_id)
+            )
+            && ($order->status_code == Order::PAYMENT_IN_PROCESS);
+    }
+
+    /**
+     * Process refund by buyer or seller
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function refund(User $user, Order $order){
+        return ($user->isSeller && optional($user->seller)->id == $order->seller_id)&& $order->status_code == Order::REQUEST_REFUND;
+    }
+
+    /**
+     * Refund complete by seller or user
+     *
+     * @param User $user
+     * @param Order $order
+     */
+    public function refundComplete(User $user, Order $order){
+        return (
+                ($user->isSeller && optional($user->seller)->id == $order->seller_id)
+                || ($user->isBuyer && optional($user->buyer)->id == $order->buyer_id)
+            )
+            && $order->status_code == Order::REFUND_BEING_PROCESSED;
+    }
 }

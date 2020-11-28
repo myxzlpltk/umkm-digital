@@ -41,36 +41,78 @@
                         @endif
                     </dl>
                 </div>
+                @can('accept-payment', $order)
                 <div class="card-footer">
-                    @can('accept-payment', $order)
-                        <form class="d-inline" action="{{ route('manage.order.accept-payment', $order) }}" method="post">
-                            @csrf
-                            @method('PATCH')
-                            <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Terima Pembayaran</a>
-                        </form>
-                    @endcan
-                    @can('deny-payment', $order)
-                        <form class="d-inline" action="{{ route('manage.order.deny-payment', $order) }}" method="post">
-                            @csrf
-                            @method('PATCH')
-                            <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Tolak Pembayaran</a>
-                        </form>
-                    @endcan
-                    @can('deliver', $order)
-                        <form class="d-inline" action="{{ route('manage.order.deliver', $order) }}" method="post">
-                            @csrf
-                            @method('PATCH')
-                            <a href="javascript:void(0)" class="btn btn-primary btn-sm btn-alert"><i class="fa fa-shipping-fast fa-fw"></i> Kirim Pesanan</a>
-                        </form>
-                    @endcan
-                    @can('delivery-complete', $order)
-                        <form class="d-inline" action="{{ route('manage.order.delivery-complete', $order) }}" method="post">
-                            @csrf
-                            @method('PATCH')
-                            <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Pesanan Telah Dikirim</a>
-                        </form>
-                    @endcan
+                    <form class="d-inline" action="{{ route('manage.order.accept-payment', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Terima Pembayaran</a>
+                    </form>
                 </div>
+                @endcan
+                @can('deny-payment', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.deny-payment', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Tolak Pembayaran</a>
+                    </form>
+                </div>
+                @endcan
+                @can('deliver', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.deliver', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm btn-alert"><i class="fa fa-shipping-fast fa-fw"></i> Kirim Pesanan</a>
+                    </form>
+                </div>
+                @endcan
+                @can('delivery-complete', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.delivery-complete', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Pesanan Telah Dikirim</a>
+                    </form>
+                </div>
+                @endcan
+                @can('cancel', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.cancel', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Batalkan Pesanan</a>
+                    </form>
+                </div>
+                @endcan
+                @can('request-refund', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.request-refund', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-danger btn-sm btn-alert"><i class="fa fa-ban fa-fw"></i> Batalkan Pesanan dan Kembalikan Dana</a>
+                    </form>
+                </div>
+                @endcan
+                @can('refund', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.refund', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sm btn-alert"><i class="fa fa-refresh fa-fw"></i> Dana Sedang Dikembalikan</a>
+                    </form>
+                </div>
+                @endcan
+                @can('refund-complete', $order)
+                <div class="card-footer">
+                    <form class="d-inline" action="{{ route('manage.order.refund-complete', $order) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <a href="javascript:void(0)" class="btn btn-success btn-sm btn-alert"><i class="fa fa-check fa-fw"></i> Dana Telah Saya Kembalikan</a>
+                    </form>
+                </div>
+                @endcan
             </div>
         </div>
         <div class="col-md-4">
