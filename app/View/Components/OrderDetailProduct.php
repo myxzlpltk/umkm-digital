@@ -9,15 +9,17 @@ class OrderDetailProduct extends Component
 {
 
     public $detail;
+    public $withAction;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(OrderDetail $detail)
+    public function __construct(OrderDetail $detail, bool $action = true)
     {
         $this->detail = $detail;
+        $this->withAction = $action;
     }
 
     /**
@@ -28,7 +30,8 @@ class OrderDetailProduct extends Component
     public function render()
     {
         return view('components.order-detail-product', [
-            'detail' => $this->detail
+            'detail' => $this->detail,
+            'withAction' => $this->withAction,
         ]);
     }
 }

@@ -26,8 +26,16 @@ class DashboardController extends Controller{
                 ])->count()
             ]);
         }
-        elseif(Gate::allows('isSeller')){
+        elseif(Gate::allows('isSellerHasStore')){
             return view('manage.seller', [
+                'orders' => auth()->user()->seller->orders()->with(['details','buyer.user'])->whereIn('status_code', [
+                    Order::PAYMENT_PENDING,
+                    Order::PAYMENT_IN_PROCESS,
+                    Order::ORDER_COMPLETED,
+                    Order::IN_DELIVERY,
+                    Order::CANCELED,
+                    Order::REFUND_BEING_PROCESSED,
+                ])->get(),
                 'seller' => auth()->user()->seller,
                 'stat_product' => auth()->user()->seller->products()->count(),
                 'stat_category' => auth()->user()->seller->categories()->count(),

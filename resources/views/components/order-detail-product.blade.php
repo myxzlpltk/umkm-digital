@@ -10,7 +10,9 @@
         <h5 class="mb-0">Total Harga Produk</h5>
         <h4 class="mb-0 text-orange"><strong>{{ UserHelp::idr($detail->subtotal) }}</strong></h4>
     </div>
+    @if($withAction)
     <div class="col">
         <a href="{{ route('carts.add', $detail->product) }}" class="btn btn-primary btn-sm"><i class="fa fa-cart-plus fa-fw"></i> Beli Lagi</a>
     </div>
+    @endif
 </div>

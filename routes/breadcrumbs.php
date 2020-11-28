@@ -79,3 +79,15 @@ Breadcrumbs::for('manage.open-hours.index', function ($trail){
     $trail->parent('home');
     $trail->push('Jam Buka', route('manage.open-hours.index'));
 });
+
+// Transaksi
+Breadcrumbs::for('manage.orders.index', function ($trail){
+    $trail->parent('home');
+    $trail->push('Transaksi', route('manage.orders.index'));
+});
+
+// Transaksi > Detail Transaksi
+Breadcrumbs::for('manage.orders.show', function ($trail, $order){
+    $trail->parent('manage.orders.index');
+    $trail->push('Detail Transaksi', route('manage.orders.show', $order));
+});

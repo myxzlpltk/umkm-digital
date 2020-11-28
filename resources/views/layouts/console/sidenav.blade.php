@@ -73,7 +73,7 @@
 
                     @can('view-any', \App\Models\Order::class)
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::segment(2) == 'orders') active @endif" href="#">
+                        <a class="nav-link @if(Request::segment(2) == 'orders') active @endif" href="{{ route('manage.orders.index') }}">
                             <i class="ni ni-money-coins text-default"></i>
                             <span class="nav-link-text">Transaksi</span>
                         </a>

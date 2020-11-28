@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function (){
         Route::get('users/{user}', 'UserController@show')->name('manage.users.show');
         Route::resource('buyers', BuyerController::class, ['as' => 'manage'])->only(['index']);
         Route::resource('sellers', SellerController::class, ['as' => 'manage'])->only(['index']);
+        Route::resource('orders', OrderController::class, ['as' => 'manage'])->only(['index', 'show']);
 
         Route::resource('products', ProductController::class, ['as' => 'manage']);
     });
