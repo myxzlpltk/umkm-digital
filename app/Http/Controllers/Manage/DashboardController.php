@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Response;
 
 class DashboardController extends Controller{
 
-    public function index(){
+    public function index(Request $request){
         if(Gate::allows('isAdmin')){
             return view('manage.admin', [
                 'stat_product' => Product::count(),
@@ -23,7 +23,9 @@ class DashboardController extends Controller{
                     Order::CANCELED,
                     Order::REFUND_BEING_PROCESSED,
                     Order::REFUND_COMPLETED,
-                ])->count()
+                ])->count(),
+                'sells' => $this->sells(Order::query()),
+                'qualities' => $this->qualities(Order::query()),
             ]);
         }
         elseif(Gate::allows('isSellerHasStore')){
@@ -44,10 +46,62 @@ class DashboardController extends Controller{
                     Order::CANCELED,
                     Order::REFUND_BEING_PROCESSED,
                     Order::REFUND_COMPLETED,
-                ])->count()
+                ])->count(),
+                'sells' => $this->sells($request->user()->seller->orders()),
+                'qualities' => $this->qualities($request->user()->seller->orders()),
             ]);
         }
 
         return abort(404);
+    }
+
+    private function sells($query){
+        $today = Carbon::today()->firstOfMonth();
+
+        $sells = new Collection;
+        for($i=0; $i<8; $i++){
+            $start = $today->copy()->subMonth($i);
+            $end = $start->copy()->endOfMonth();
+            $sells->push(new Collection([
+                'month' => $start->shortMonthName,
+                'start' => $start,
+                'end' => $end,
+                'stat' => $query->with('details')
+                    ->where('status_code', Order::ORDER_COMPLETED)
+                    ->where('created_at', '>=', $start)
+                    ->where('created_at', '<=', $end)
+                    ->get()
+                    ->sum('total')
+            ]));
+        }
+
+        return $sells->reverse();
+    }
+
+    private function qualities($query){
+        $today = Carbon::today()->firstOfMonth();
+        $qualities = new Collection;
+        for($i=0; $i<6; $i++){
+            $start = $today->copy()->subMonth($i);
+            $end = $start->copy()->endOfMonth();
+
+            $success = $query->where('status_code', Order::ORDER_COMPLETED)
+                ->where('created_at', '>=', $start)
+                ->where('created_at', '<=', $end)
+                ->count();
+            $failed = $query->where('status_code', Order::REFUND_COMPLETED)
+                ->where('created_at', '>=', $start)
+                ->where('created_at', '<=', $end)
+                ->count();
+            $total = $success+$failed;
+            $qualities->push(new Collection([
+                'month' => $start->shortMonthName,
+                'start' => $start,
+                'end' => $end,
+                'stat' => $total == 0 ? 0 : round($success/$total*100)
+            ]));
+        }
+
+        return $qualities->reverse();
     }
 }
