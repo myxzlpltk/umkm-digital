@@ -24,8 +24,8 @@ class DashboardController extends Controller{
                     Order::REFUND_BEING_PROCESSED,
                     Order::REFUND_COMPLETED,
                 ])->count(),
-                'sells' => $this->sells(Order::query()),
-                'qualities' => $this->qualities(Order::query()),
+                'sells' => $this->sells(new Order()),
+                'qualities' => $this->qualities(new Order()),
             ]);
         }
         elseif(Gate::allows('isSellerHasStore')){
