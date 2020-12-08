@@ -104,7 +104,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($orders as $order)
+                @forelse($orders as $order)
                     <tr>
                         <td>{{ $order->created_at->format('d M Y') }}</td>
                         <td>
@@ -119,7 +119,11 @@
                             </a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada data</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
