@@ -19,6 +19,11 @@ class OrderObserver
         $track->order_id = $order->id;
         $track->status_code = $order->status_code;
         $track->save();
+
+        foreach($order->details as $detail){
+            $detail->product->stock = $detail->product->stock - $detail->qty;
+            $detail->save();
+        }
     }
 
     /**
