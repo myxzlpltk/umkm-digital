@@ -55,12 +55,19 @@
                                             @csrf
                                             @method('PATCH')
 
+                                            <input type="hidden" value="{{ $cart->id }}" name="id">
+                                            @if(old('id') == $cart->id)
                                             <div class="form-group mb-0">
                                                 <input type="number" value="{{ old('qty', $cart->qty) }}" class="form-control form-control-sm text-center @error('qty') is-invalid @enderror" name="qty" min="1" max="{{ $cart->product->stock }}" required>
                                                 @error('qty')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                                 @enderror
                                             </div>
+                                            @else
+                                            <div class="form-group mb-0">
+                                                <input type="number" value="{{ $cart->qty }}" class="form-control form-control-sm text-center" name="qty" min="1" max="{{ $cart->product->stock }}" required>
+                                            </div>
+                                            @endif
                                         </form>
                                     </td>
                                     <td>{{ UserHelp::idr($cart->subtotal) }}</td>
