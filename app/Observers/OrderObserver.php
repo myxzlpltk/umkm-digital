@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Order;
 use App\Models\Track;
+use App\Notifications\UpdateStatusOrder;
 use Illuminate\Support\Facades\Storage;
 
 class OrderObserver
@@ -24,6 +25,8 @@ class OrderObserver
             $detail->product->stock = $detail->product->stock - $detail->qty;
             $detail->save();
         }
+
+        $order->buyer->user->notify(new UpdateStatusOrder($order));
     }
 
     /**
@@ -39,6 +42,8 @@ class OrderObserver
             $track->order_id = $order->id;
             $track->status_code = $order->status_code;
             $track->save();
+
+            $order->buyer->user->notify(new UpdateStatusOrder($order));
         }
 
         if($order->wasChanged('payment_proof')){
