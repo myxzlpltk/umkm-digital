@@ -61,10 +61,10 @@ class SellerController extends Controller{
      */
     public function show(Seller $seller){
         $now = Carbon::now();
-        $today = $seller->days->where('index', $now->dayOfWeek)->first();
+        $today = $seller->days()->where('index', $now->dayOfWeek)->first();
 
         $i = 1;
-        if(Carbon::parse($today->pivot->start)->gte($now)){
+        if(!is_null($today) && Carbon::parse($today->pivot->start)->gte($now)){
             $tomorrow = $today;
         }
         else {
@@ -77,7 +77,6 @@ class SellerController extends Controller{
         $isOpen = $today
             && Carbon::parse($today->pivot->start)->lte($now)
             && Carbon::parse($today->pivot->end)->gte($now);
-
 
         return view('sellers.show', [
             'seller' => $seller,

@@ -44,7 +44,7 @@
                                         <span>Tutup jam {{ \Carbon\Carbon::parse($tomorrow->pivot->end)->format('H:i') }}</span>
                                     @else
                                         <span class="badge badge-danger badge-lg mr-3">TUTUP</span>
-                                        <span>Buka lagi jam {{ \Carbon\Carbon::parse($tomorrow->pivot->start)->format('H:i') }} @if($tomorrow == $today) hari ini @else besok @endif</span>
+                                        <span>Buka lagi jam {{ \Carbon\Carbon::parse($tomorrow->pivot->start)->format('H:i') }} @if($tomorrow == $today) hari ini @else hari {{ strtolower($tomorrow->name) }} @endif</span>
                                     @endif
 
                                     <div class="mt-3">
