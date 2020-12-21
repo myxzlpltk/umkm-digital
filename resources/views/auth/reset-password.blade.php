@@ -80,7 +80,7 @@
                                 @enderror
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary mt-4">Masuk</button>
+                                <button type="submit" class="btn btn-primary mt-4">Reset</button>
                             </div>
                         </form>
                     </div>
