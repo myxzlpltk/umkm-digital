@@ -5,13 +5,19 @@ Project ini adalah sistem informasi UMKM untuk tugas besar pemrograman web dan b
   - [Bootstrap 4](https://github.com/twbs/bootstrap)
   - [Argon Dashboard](https://demos.creative-tim.com/argon-dashboard/index.html)
 
+## Persyaratan
+  - Apache (Web Server)
+  - Minimal PHP 7.2
+  - Database Engine (Example: MySQL)
+  - Composer
+
 ## Instalasi
 ----
-**1. Kloning repository ini ke dalam komputer kamu**
+**1. Kloning repository ini ke dalam komputer kamu (private repo)**
 ```
 $ git clone https://github.com/myxzlpltk/umkm-digital.git
 ```
-Tunggu hingga proses kloning selesai. Kemudian masuk ke dalam direktori `$ cd umkm-digital-frontend`.
+Tunggu hingga proses kloning selesai. Kemudian masuk ke dalam direktori `$ cd umkm-digital`.
 
 **2. Install depedencies** _(The second heaviest objects in universe)_
 ```
@@ -20,7 +26,8 @@ $ composer install
 Proses mungkin akan memakan waktu yang lama tergantung kecepatan internet kamu.
 
 **3. Konfigurasi**
-Buat database baru dan konfigurasikan di dotenv (.env)
+
+Duplikat file `.env.example` dengan nama `.env`. Kemudian buat database baru dan konfigurasi database di `.env` (dotenv)
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -31,6 +38,7 @@ DB_PASSWORD=
 ```
 
 **4. Migrasi Basis Data**
+
 Jalankan proses migrasi basis data dan seeder
 ```
 php artisan migrate --seed
