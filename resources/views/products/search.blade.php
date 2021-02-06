@@ -37,18 +37,19 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-12 col-md pt-3">
-                                    <div class="card">
-                                        <div class="input-group input-group-merge">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-utensils"></i></span>
-                                            </div>
-                                            <input class="form-control" placeholder="Pesan apa aja..." type="text" name="q" id="input-q" value="{{ $q }}" autofocus>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-utensils"></i></span>
                                         </div>
+                                        <input class="form-control" placeholder="Pesan apa aja..." type="text" name="q" id="input-q" value="{{ $q }}" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-auto pl-md-1 pt-3">
                                     <button type="button" class="btn btn-white bg-gradient-white" data-toggle="collapse" data-target="#filter"><i class="fa fa-filter"></i></button>
                                     <button type="submit" class="btn btn-white"><i class="fa fa-search"></i><span class="d-none d-md-inline">Cari</span></button>
+                                </div>
+                                <div class="col-12 pt-3">
+                                    <img src="{{ asset('img/icons/search-by-algolia-dark-background.svg') }}" alt="">
                                 </div>
                             </div>
                         </div>
