@@ -32,18 +32,13 @@ class ProductController extends Controller{
         }
 
         if($request->store) {
-            $sellers = Seller::query()
-                ->where('store_name', 'like', "%{$request->q}%")
-                ->paginate(24);
+            $sellers = Seller::search($request->q)->paginate(24);
         }
         else{
-            $products = Product::query()
-                ->where('name', 'like', "%{$request->q}%")
-                ->where(function ($query) use ($request) {
-                    if ($request->min) $query->where('price', '>=', $request->min);
-                    if ($request->max) $query->where('price', '<=', $request->max);
-                })
-                ->paginate(24);
+            $query = Product::search($request->q);
+            if ($request->min) $query->where('price_after_discount', '>=', $request->min);
+            if ($request->max) $query->where('price_after_discount', '<=', $request->max);
+            $products = $query->paginate(24);
         }
 
         return view('products.search', [

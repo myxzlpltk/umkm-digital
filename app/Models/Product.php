@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $attributes = [
         'description' => '',
@@ -15,6 +16,27 @@ class Product extends Model
         'rating' => null,
         'stock' => 0,
     ];
+
+    public function toSearchableArray(){
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'price' => $this->price,
+            'price_after_discount' => $this->price_after_discount,
+            'discount' => $this->discount,
+            'stock' => $this->stock,
+            'rating' => $this->rating,
+            'category' => $this->category->name,
+            'store_name' => $this->seller->store_name,
+            'phone_number' => $this->seller->phone_number,
+            'address' => $this->seller->address,
+            'image' => asset("storage/products/{$this->image}"),
+        ];
+    }
+
+    protected function makeAllSearchableUsing($query){
+        return $query->with(['category', 'seller']);
+    }
 
     public function seller(){
         return $this->belongsTo('App\Models\Seller');
